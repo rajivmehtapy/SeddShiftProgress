@@ -1,10 +1,21 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
+  state = {
+    sourcejson: `{
+      "firstname": "mm"
+    }`
+  };
+
+  onSourceChange = ev => {
+    const updatestate = { ...this.state };
+    updatestate.sourcejson = ev.currentTarget.value;
+    this.setState(updatestate);
+  };
+
   onconversion = () => {
-    alert("gd");
+    alert(JSON.parse(this.state.sourcejson).firstname);
   };
   render() {
     return (
@@ -12,7 +23,11 @@ class App extends Component {
         <div className="App container_info">
           <div className="container_json">
             <span>Raw Json</span>
-            <textarea className="textarea_source" />
+            <textarea
+              onChange={ev => this.onSourceChange(ev)}
+              value={this.state.sourcejson}
+              className="textarea_source"
+            />
           </div>
           <div className="container_json">
             <span>Target Json</span>
@@ -20,7 +35,9 @@ class App extends Component {
           </div>
         </div>
         <div className="container_button">
-          <button onClick={this.onconversion}>Convert to Segments</button>
+          <button onClick={() => this.onconversion()}>
+            Convert to Segments
+          </button>
         </div>
       </React.Fragment>
     );
