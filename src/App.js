@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
-
+import seddCalculation from "./utility/seddCalculation";
+import DataSource from "./data/phaseDetail";
 class App extends Component {
   state = {
-    sourcejson: `{
-      "firstname": "mm"
-    }`
+    sourcejson: DataSource.ShiftInfo,
+    targetjson: DataSource.TargetInfo
   };
+  seddCalculationRef = new seddCalculation();
 
   onSourceChange = ev => {
     const updatestate = { ...this.state };
@@ -15,8 +16,9 @@ class App extends Component {
   };
 
   onconversion = () => {
-    alert(JSON.parse(this.state.sourcejson).firstname);
+    //this.seddCalculationRef.ping("gd");
   };
+
   render() {
     return (
       <React.Fragment>
@@ -31,7 +33,11 @@ class App extends Component {
           </div>
           <div className="container_json">
             <span>Target Json</span>
-            <textarea className="textarea_target" />
+            <textarea
+              readOnly
+              value={this.state.targetjson}
+              className="textarea_target"
+            />
           </div>
         </div>
         <div className="container_button">

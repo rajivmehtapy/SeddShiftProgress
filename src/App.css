@@ -34,7 +34,7 @@
 .container_info .textarea_source {
   height: 200px;
   width: 500px;
-  resize: none;
+  resize: both;
 }
 
 .container_info .textarea_target {
