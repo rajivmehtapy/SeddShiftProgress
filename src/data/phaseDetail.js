@@ -40,6 +40,7 @@ export default class DataSource {
                 "distance": 65, 
                 "clockHours": 1, 
                 "entryPoint": "ENTRY_SIDE",
+                "workUnitMasterindex": 0,
                 "workUnitIndex": 0 
               }, 
               {
@@ -48,7 +49,8 @@ export default class DataSource {
                 "distance": 54, 
                 "clockHours": 2, 
                 "entryPoint": "ENTRY_SIDE",
-                "workUnitIndex": 1
+                "workUnitIndex": 1,
+                "workUnitMasterindex": 1
               }
             ] 
         }, 
@@ -66,7 +68,8 @@ export default class DataSource {
                 "distance": 4, 
                 "clockHours": 1, 
                 "entryPoint": "EXIT_SIDE",
-                "workUnitIndex": 0
+                "workUnitIndex": 0,
+                "workUnitMasterindex": 2
               }
             ] 
           }

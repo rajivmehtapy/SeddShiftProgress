@@ -16,7 +16,9 @@ class App extends Component {
   };
 
   onconversion = () => {
-    //this.seddCalculationRef.ping("gd");
+    const phases = JSON.parse(this.state.sourcejson).phaseProgress;
+    const target = JSON.parse(this.state.targetjson);
+    this.seddCalculationRef.convertToSegment(phases, target);
   };
 
   render() {
