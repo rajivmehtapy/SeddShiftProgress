@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import "./App.css";
 import seddCalculation from "./utility/seddCalculation";
 import DataSource from "./data/phaseDetail";
+import { fromProgressArray, toArray, toVolume } from "@sedd/utils/segment";
+
+const calculate = progress => toVolume(fromProgressArray(progress));
+const calculatearray = progress => toArray(fromProgressArray(progress));
 class App extends Component {
   state = {
     sourcejson: DataSource.ShiftInfo,
@@ -16,9 +20,15 @@ class App extends Component {
   };
 
   onconversion = () => {
-    const phases = JSON.parse(this.state.sourcejson).phaseProgress;
-    const target = JSON.parse(this.state.targetjson);
-    this.seddCalculationRef.convertToSegment(phases, target);
+    // const phases = JSON.parse(this.state.sourcejson).phaseProgress;
+    // const target = JSON.parse(this.state.targetjson);
+    // this.seddCalculationRef.{ distance: 100, diameter: 30 }convertToSegment(phases, target);
+    debugger;
+    const obj = calculatearray([
+      { diameter: 30, distance: 100 },
+      { diameter: 32, distance: 100 }
+    ]);
+    console.log(obj);
   };
 
   render() {
