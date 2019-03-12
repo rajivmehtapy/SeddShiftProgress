@@ -20,10 +20,10 @@ class App extends Component {
   };
 
   onconversion = () => {
-    // const phases = JSON.parse(this.state.sourcejson).phaseProgress;
-    // const target = JSON.parse(this.state.targetjson);
-    // this.seddCalculationRef.{ distance: 100, diameter: 30 }convertToSegment(phases, target);
-    debugger;
+    const phases = JSON.parse(this.state.sourcejson).shiftPhaseProgress;
+    const target = JSON.parse(this.state.targetjson);
+    this.seddCalculationRef.convertToSegment(phases, target);
+    //this.seddCalculationRef.{ distance: 100, diameter: 30 0};
     const obj = calculatearray([
       { diameter: 30, distance: 100 },
       { diameter: 32, distance: 100 }
