@@ -52,4 +52,18 @@ export default class DataSource {
     "diameter":48,
     "distance":1000
 }`;
+
+static ActualArray = `[
+  { "diameter": "36", "distance": "100" },
+  { "diameter": "30", "distance": "200" },
+  { "diameter": "24", "distance": "300" },
+  { "diameter": "11", "distance": "100" }
+]`;
+
+static FinalArray = `[
+  { "diameter": "36", "distance": "150" },
+  { "diameter": "30", "distance": "200" },
+  { "diameter": "24", "distance": "300" },
+  { "diameter": "11", "distance": "100" }
+]`;
 }

@@ -8,7 +8,7 @@ export default class seddCalculation {
     DRILLING: "DRILLING"
   };
 
-  convertToSegment(phaseProgress, target) {
+  convertToSegment(phaseProgress, target,actual,final) {
     let totalDistance = 0;
     let lastnode = 0;
     phaseProgress.map(phase => {
@@ -24,7 +24,11 @@ export default class seddCalculation {
     alert(
       `Segment for this Data is ${lastnode}X${totalDistance}---${
         target.diameter
-      }X${target.distance - totalDistance}`
+      }X${target.distance - totalDistance} 
+      Actual Volume ${actual}  
+      Final Volume  ${final}
+      Total Volume  ${final - actual}`
+      
     );
   }
 
