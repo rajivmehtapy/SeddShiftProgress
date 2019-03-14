@@ -217,9 +217,9 @@ class App extends Component {
           </div>
         </div>
         <div className="container_button">
-          <button onClick={() => this.onconversion()}>
+          {/* <button onClick={() => this.onconversion()}>
             Convert to Segments
-          </button>
+          </button> */}
         </div>
       </React.Fragment>
     );
