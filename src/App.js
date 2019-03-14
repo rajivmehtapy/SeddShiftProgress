@@ -26,14 +26,14 @@ class App extends Component {
     const updatestate = { ...this.state };
     updatestate.sourcejson = ev.currentTarget.value;
     //this.setState(updatestate);
-    this.calculateFinalProgress(2, JSON.stringify(ev.currentTarget.value));
+    this.calculateFinalProgress(3, ev.currentTarget.value);
   };
 
   onActualChange = e => {
     const actualstate = { ...this.state };
     actualstate.actualjson = e.currentTarget.value;
     //this.setState(actualstate);
-    this.calculateFinalProgress(2, JSON.stringify(e.currentTarget.value));
+    this.calculateFinalProgress(2, e.currentTarget.value);
   };
 
   componentDidMount() {
@@ -42,15 +42,27 @@ class App extends Component {
 
   calculateFinalProgress(flag, startjson) {
     this.finalprogressList = [];
+    this.workUnitList = [];
     // eslint-disable-next-line default-case
-    JSON.parse(this.state.sourcejson).shiftPhaseProgress.map(shift => {
-      shift.workUnits.map(workunit => {
-        this.workUnitList.push({
-          diameter: workunit.boreSize,
-          distance: workunit.distance
+    if (flag == 3) {
+      JSON.parse(startjson).shiftPhaseProgress.map(shift => {
+        shift.workUnits.map(workunit => {
+          this.workUnitList.push({
+            diameter: workunit.boreSize,
+            distance: workunit.distance
+          });
         });
       });
-    });
+    } else {
+      JSON.parse(this.state.sourcejson).shiftPhaseProgress.map(shift => {
+        shift.workUnits.map(workunit => {
+          this.workUnitList.push({
+            diameter: workunit.boreSize,
+            distance: workunit.distance
+          });
+        });
+      });
+    }
 
     var startprogresslist = [];
     // eslint-disable-next-line default-case
@@ -59,7 +71,10 @@ class App extends Component {
         startprogresslist = JSON.parse(this.state.actualjson);
         break;
       case 2:
-        startprogresslist = JSON.parse(JSON.parse(startjson));
+        startprogresslist = JSON.parse(startjson);
+        break;
+      case 3:
+        startprogresslist = JSON.parse(this.state.actualjson);
         break;
     }
 
@@ -81,19 +96,41 @@ class App extends Component {
       case 1:
         this.setState({
           ...this.state,
+          actualvolume: startingarray(JSON.parse(this.state.actualjson)),
+          shiftvolume: startingarray(this.workUnitList),
           finaljson: JSON.stringify(this.finalprogressList)
         });
         break;
       case 2:
+        debugger;
+
         this.setState({
           ...this.state,
-          actualjson: JSON.parse(startjson),
+          actualvolume: startingarray(JSON.parse(startjson)),
+          shiftvolume: startingarray(this.workUnitList),
+
+          actualjson: startjson,
+          finaljson: JSON.stringify(this.finalprogressList)
+        });
+        break;
+      case 3:
+        this.setState({
+          ...this.state,
+          actualvolume: startingarray(JSON.parse(this.state.actualjson)),
+          shiftvolume: startingarray(this.workUnitList),
+
+          sourcejson: startjson,
           finaljson: JSON.stringify(this.finalprogressList)
         });
         break;
       default:
         break;
     }
+    // const updatedState = { ...this.state };
+    // updatedState.actualvolume = startingarray();
+    // // updatedState.finalvolume = targetfinal;
+    // // updatedState.shiftvolume = targetfinal - startfinal;
+    // this.setState(updatedState);
   }
 
   onconversion = () => {
@@ -160,14 +197,14 @@ class App extends Component {
             />
             <span>Shift Volume:{this.state.shiftvolume}</span>
           </div>
-          <div className="container_json">
+          {/* <div className="container_json">
             <span>Target Json</span>
             <textarea
               readOnly
               value={this.state.targetjson}
               className="textarea_target"
             />
-          </div>
+          </div> */}
           <div className="container_json">
             <span>
               Ending <br /> ProgressArray
