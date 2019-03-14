@@ -21,15 +21,15 @@ export default class seddCalculation {
         });
       }
     });
-    alert(
-      `Segment for this Data is ${lastnode}X${totalDistance}---${
-        target.diameter
-      }X${target.distance - totalDistance} 
-      Actual Volume ${actual}  
-      Final Volume  ${final}
-      Total Volume  ${final - actual}`
+    // alert(
+    //   `Segment for this Data is ${lastnode}X${totalDistance}---${
+    //     target.diameter
+    //   }X${target.distance - totalDistance} 
+    //   Actual Volume ${actual}  
+    //   Final Volume  ${final}
+    //   Total Volume  ${final - actual}`
       
-    );
+    // );
   }
 
   // diameter(dia, target_dia) {
