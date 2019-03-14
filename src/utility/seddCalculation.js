@@ -32,22 +32,22 @@ export default class seddCalculation {
     );
   }
 
-  diameter(dia, target_dia) {
-    const total = dia / target_dia;
-    const radius = total / 2;
-    return radius;
-    console.log("Result", radius);
-  }
+  // diameter(dia, target_dia) {
+  //   const total = dia / target_dia;
+  //   const radius = total / 2;
+  //   return radius;
+  //   console.log("Result", radius);
+  // }
 
-  distance(total_dis, actual_dis) {
-    const current = total_dis / actual_dis;
-    return current;
-    console.log("Result for distance", current);
-  }
+  // distance(total_dis, actual_dis) {
+  //   const current = total_dis / actual_dis;
+  //   return current;
+  //   console.log("Result for distance", current);
+  // }
 
-  volume(pie, radius, height_dis) {
-    const total_volume = pie * Math.pow(radius, 2) * height_dis;
-    console.log("Result for volume", total_volume);
-    return total_volume;
-  }
+  // volume(pie, radius, height_dis) {
+  //   const total_volume = pie * Math.pow(radius, 2) * height_dis;
+  //   console.log("Result for volume", total_volume);
+  //   return total_volume;
+  // }
 }

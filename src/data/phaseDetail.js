@@ -48,7 +48,7 @@ export default class DataSource {
 }
 `;
 
-  static TargetInfo = `{
+static TargetInfo = `{
     "diameter":48,
     "distance":1000
 }`;

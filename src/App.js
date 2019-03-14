@@ -24,12 +24,18 @@ class App extends Component {
     this.setState(updatestate);
   };
 
+  onActualChange= e => {
+    const actualstate = { ...this.state};
+    actualstate.actualjson = e.currentTarget.value;
+    this.setState(actualstate);
+  }
+
 
   onconversion = () => {
     const phases = JSON.parse(this.state.sourcejson).shiftPhaseProgress;
     const target = JSON.parse(this.state.targetjson);
     const actual = JSON.parse(this.state.actualjson);
-    const final = JSON.parse(this.state.finaljson);
+    const final =  JSON.parse(this.state.finaljson);
 
     this.seddCalculationRef.convertToSegment(phases, target, calculate(actual),calculate(final));
     //this.seddCalculationRef.{ distance: 100, diameter: 30 0};
@@ -51,21 +57,24 @@ class App extends Component {
     ]);
     console.log("Shift Volume",targetfinal-startfinal)
     console.log("volume",obj);
-    console.log("Actual volume",startfinal);
+    console.log("Actual volume ******",startfinal);
     console.log("Final Volume",targetfinal);
   };
 
   render() {
+  
     return (
       <React.Fragment>
         <div className="App container_info">
           <div className="container_json">
             <span>Starting <br /> ProgressArray</span>
             <textarea
-              readOnly
+              onChange={e => this.onActualChange(e)}
               value={this.state.actualjson}
               className="textarea_target"
             />
+            <span>Starting Volume:</span>
+            
           </div>
           <div className="container_json">
             <span>Raw Json</span>
@@ -74,6 +83,7 @@ class App extends Component {
               value={this.state.sourcejson}
               className="textarea_source"
             />
+            <span>Shift Volume: </span>
           </div>
           <div className="container_json">
             <span>Target Json</span>
@@ -90,6 +100,7 @@ class App extends Component {
               value={this.state.finaljson}
               className="textarea_target"
             />
+            <span>Ending Volume:</span>
           </div>
         </div>
         <div className="container_button">
