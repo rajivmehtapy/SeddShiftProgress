@@ -98,17 +98,16 @@ class App extends Component {
           ...this.state,
           actualvolume: startingarray(JSON.parse(this.state.actualjson)),
           shiftvolume: startingarray(this.workUnitList),
+          finalvolume: startingarray(this.finalprogressList),
           finaljson: JSON.stringify(this.finalprogressList)
         });
         break;
       case 2:
-        debugger;
-
         this.setState({
           ...this.state,
           actualvolume: startingarray(JSON.parse(startjson)),
           shiftvolume: startingarray(this.workUnitList),
-
+          finalvolume: startingarray(this.finalprogressList),
           actualjson: startjson,
           finaljson: JSON.stringify(this.finalprogressList)
         });
@@ -118,7 +117,7 @@ class App extends Component {
           ...this.state,
           actualvolume: startingarray(JSON.parse(this.state.actualjson)),
           shiftvolume: startingarray(this.workUnitList),
-
+          finalvolume: startingarray(this.finalprogressList),
           sourcejson: startjson,
           finaljson: JSON.stringify(this.finalprogressList)
         });
