@@ -165,7 +165,7 @@ class App extends Component {
     console.log("Shift Volume", targetfinal - startfinal);
     // console.log("volume", obj);
     console.log("Actual volume", startfinal);
-    console.log("Final Array",this.state.finaljson)
+    console.log("Final Array",this.state)
     console.log("Final Volume", targetfinal);
     const updatedState = { ...this.state };
     updatedState.actualvolume = startfinal;
@@ -219,9 +219,9 @@ class App extends Component {
           </div>
         </div>
         <div className="container_button">
-          <button onClick={() => this.onconversion()}>
-            Convert to Segments
-          </button>
+            <button onClick={() => this.onconversion()}>
+              Convert to Segments
+            </button>
         </div>
       </React.Fragment>
     );
