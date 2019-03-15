@@ -161,9 +161,11 @@ class App extends Component {
       { diameter: "24", distance: "300" },
       { diameter: "11", distance: "100" }
     ]);
+    console.log("Progress Array",this.state.actualjson)
     console.log("Shift Volume", targetfinal - startfinal);
-    console.log("volume", obj);
-    console.log("Actual volume ******", startfinal);
+    // console.log("volume", obj);
+    console.log("Actual volume", startfinal);
+    console.log("Final Array",this.state.finaljson)
     console.log("Final Volume", targetfinal);
     const updatedState = { ...this.state };
     updatedState.actualvolume = startfinal;
@@ -217,9 +219,9 @@ class App extends Component {
           </div>
         </div>
         <div className="container_button">
-          {/* <button onClick={() => this.onconversion()}>
+          <button onClick={() => this.onconversion()}>
             Convert to Segments
-          </button> */}
+          </button>
         </div>
       </React.Fragment>
     );
