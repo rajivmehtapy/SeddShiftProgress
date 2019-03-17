@@ -25,13 +25,13 @@ export default class seddCalculation {
       `Segment for this Data is ${lastnode}X${totalDistance}---${
         target.diameter
       }X${target.distance - totalDistance} 
-      Actual Volume ${actual}  
-      Final Volume  ${final}
-      Total Volume  ${final - actual}`
-      
+     
+      `
     );
   }
-
+  // Actual Volume ${actual}  
+  // Final Volume  ${final}
+  // Total Volume  ${final - actual}`
   // diameter(dia, target_dia) {
   //   const total = dia / target_dia;
   //   const radius = total / 2;

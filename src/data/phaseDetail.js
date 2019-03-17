@@ -30,14 +30,14 @@ export default class DataSource {
                 "clockHours": 4.5, 
                 "entryPoint": "ENTRY_SIDE",
                 "workUnitIndex": 0 
-              },
-                            {
-                "id": "4e823b8c-8b45-4c0a-9540-6280d6256b7d", 
-                "boreSize": 24,
+              }, 
+              {
+                "id": "d08156c4-64bc-47ee-a285-b39ce9c548f0", 
+                "boreSize": 24, 
                 "distance": 75, 
-                "clockHours": 4.5, 
+                "clockHours": 2, 
                 "entryPoint": "ENTRY_SIDE",
-                "workUnitIndex": 0 
+                "workUnitIndex": 1
               }
 
             ] 
