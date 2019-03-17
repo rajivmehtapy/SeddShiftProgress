@@ -61,6 +61,13 @@ export default class DataSource {
   { "diameter": 11, "distance": 100 }
 ]`;
 
+  static checkArray = [
+    { diameter: 36, distance: 100 },
+    { diameter: 30, distance: 250 },
+    { diameter: 24, distance: 325 },
+    { diameter: 11, distance: 25 }
+  ];
+
   // static ActualArray = `[
   //    {"diameter": 54,"distance": 9},
   //    {"diameter": 42,"distance": 3},

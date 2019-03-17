@@ -96,7 +96,8 @@ class App extends Component {
     this.finalprogressList = toArray(
       fromProgressArray(startprogresslist.concat(this.workUnitList))
     );
-
+    debugger;
+    console.log(calculate(toArray(fromProgressArray(DataSource.checkArray))));
     switch (flag) {
       case 1:
         this.setState({
