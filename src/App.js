@@ -202,7 +202,7 @@ class App extends Component {
               value={this.state.sourcejson}
               className="textarea_source"
             />
-            <span>Shift Volume:{this.state.shiftvolume}</span>
+            {/* <span>Shift Volume:{this.state.shiftvolume}</span> */}
           </div>
           {/* <div className="container_json">
             <span>Target Json</span>
