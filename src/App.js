@@ -63,7 +63,6 @@ class App extends Component {
         });
       });
     }
-
     var startprogresslist = [];
     // eslint-disable-next-line default-case
     switch (flag) {
@@ -78,20 +77,26 @@ class App extends Component {
         break;
     }
 
-    startprogresslist.map(unit => {
-      const target = this.workUnitList.filter(
-        workunit => workunit.diameter === Number(unit.diameter)
-      );
-      if (target.length > 0) {
-        const obj = {
-          diameter: unit.diameter,
-          distance: Number(unit.distance) + Number(target[0].distance)
-        };
-        this.finalprogressList.push(obj);
-      } else {
-        this.finalprogressList.push(unit);
-      }
-    });
+    // startprogresslist.map(unit => {
+    //   const target = this.workUnitList.filter(
+    //     workunit => workunit.diameter === Number(unit.diameter)
+    //   );
+    //   if (target.length > 0) {
+    //     const obj = {
+    //       diameter: unit.diameter,
+    //       distance: Number(unit.distance) + Number(target[0].distance)
+    //     };
+    //     this.finalprogressList.push(obj);
+    //   } else {
+    //     this.finalprogressList.push(unit);
+    //   }
+    // });
+    //debugger;
+    //this.finalprogressList = startprogresslist.concat(this.workUnitList);
+    this.finalprogressList = toArray(
+      fromProgressArray(startprogresslist.concat(this.workUnitList))
+    );
+
     switch (flag) {
       case 1:
         this.setState({
@@ -161,11 +166,11 @@ class App extends Component {
       { diameter: "24", distance: "300" },
       { diameter: "11", distance: "100" }
     ]);
-    console.log("Progress Array",this.state.actualjson)
+    console.log("Progress Array", this.state.actualjson);
     console.log("Shift Volume", targetfinal - startfinal);
     // console.log("volume", obj);
     console.log("Actual volume", startfinal);
-    console.log("Final Array",this.state.finaljson)
+    console.log("Final Array", this.state.finaljson);
     console.log("Final Volume", targetfinal);
     const updatedState = { ...this.state };
     updatedState.actualvolume = startfinal;
