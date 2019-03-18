@@ -18,10 +18,10 @@ class App extends Component {
     actualvolume: 0,
     finalvolume: 0,
     shiftvolume: 0,
-    drillPlan: 0,
-    openPhaseWeight: 0,
-    PilotPlan: 0,
-    DrillWeight: 0,
+    drillPlan: `{"diameter":48,"distance":1500}`,
+    openPhaseWeight: 47,
+    PilotPlan: `{"diameter":11,"distance":1500}`,
+    DrillWeight: 25,
     OpenPhasePoint: 0,
     DrillPoints: 0,
     ContractPoints: 0,
@@ -47,8 +47,7 @@ class App extends Component {
     this.calculateFinalProgress(2, e.currentTarget.value);
   };
 
-  onDrillPlan = () =>{
-  }
+  onDrillPlan = () => {};
   componentDidMount() {
     this.calculateFinalProgress(1);
   }
@@ -93,7 +92,6 @@ class App extends Component {
     this.finalprogressList = toArray(
       fromProgressArray(startprogresslist.concat(this.workUnitList))
     );
-    console.log(calculate(toArray(fromProgressArray(DataSource.checkArray))));
     switch (flag) {
       case 1:
         this.setState({
@@ -101,7 +99,14 @@ class App extends Component {
           actualvolume: startingarray(JSON.parse(this.state.actualjson)),
           shiftvolume: startingarray(this.workUnitList),
           finalvolume: startingarray(this.finalprogressList),
-          finaljson: JSON.stringify(this.finalprogressList)
+          finaljson: JSON.stringify(this.finalprogressList),
+          TotalVolumes: calculate(
+            toArray(fromProgressArray([JSON.parse(this.state.drillPlan)]))
+          ),
+          //this.state.PilotPlan
+          PilotVolume: calculate(
+            toArray(fromProgressArray([JSON.parse(this.state.PilotPlan)]))
+          )
         });
         break;
       case 2:
@@ -177,16 +182,40 @@ class App extends Component {
         <div className="App container_info">
           <div className="container_json">
             <span>Drill Plan</span>
-            <input type="text" value={this.state.drillPlan} />
+            <input
+              type="text"
+              onChange={() => {}}
+              value={this.state.drillPlan}
+            />
+            <span style={{ marginRight: "25px" }}>
+              Total Volume:{this.state.TotalVolumes}
+            </span>
+
             <span>Open Phase Weight</span>
-            <input type="text" value={this.state.openPhaseWeight}/>
+            <input
+              type="text"
+              onChange={() => {}}
+              value={this.state.openPhaseWeight}
+            />
           </div>
 
           <div className="container_json">
             <span>Pilot Plan</span>
-            <input type="text" value={this.state.PilotPlan}/>
+            <input
+              type="text"
+              onChange={() => {}}
+              value={this.state.PilotPlan}
+            />
+            <span style={{ marginRight: "25px" }}>
+              Pilot Volume:{this.state.PilotVolume}
+            </span>
+
             <span>Drill Weight</span>
-            <input type="text" value={this.state.DrillWeight}/>
+            <input
+              type="text"
+              onChange={() => {}}
+              value={this.state.DrillWeight}
+            />
           </div>
           {/* <div className="container_json">
             <span>Total Volume:</span>
