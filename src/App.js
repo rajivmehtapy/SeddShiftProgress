@@ -32,6 +32,7 @@ class App extends Component {
   seddCalculationRef = new seddCalculation();
   workUnitList = [];
   finalprogressList = [];
+
   onSourceChange = ev => {
     const updatestate = { ...this.state };
     updatestate.sourcejson = ev.currentTarget.value;
@@ -46,6 +47,8 @@ class App extends Component {
     this.calculateFinalProgress(2, e.currentTarget.value);
   };
 
+  onDrillPlan = () =>{
+  }
   componentDidMount() {
     this.calculateFinalProgress(1);
   }
@@ -174,16 +177,16 @@ class App extends Component {
         <div className="App container_info">
           <div className="container_json">
             <span>Drill Plan</span>
-            <input type="text" />
+            <input type="text" value={this.state.drillPlan} />
             <span>Open Phase Weight</span>
-            <input type="text" />
+            <input type="text" value={this.state.openPhaseWeight}/>
           </div>
 
           <div className="container_json">
             <span>Pilot Plan</span>
-            <input type="text" />
+            <input type="text" value={this.state.PilotPlan}/>
             <span>Drill Weight</span>
-            <input type="text" />
+            <input type="text" value={this.state.DrillWeight}/>
           </div>
           {/* <div className="container_json">
             <span>Total Volume:</span>
@@ -238,13 +241,13 @@ class App extends Component {
           </button>
         </div>
         <div className="container_center">
-          <span>Open Phase Point: </span>
+          <span>Open Phase Point: {this.state.OpenPhasePoint}</span>
         </div>
         <div className="container_center">
-          <span>Drill Points: </span>
+          <span>Drill Points: {this.state.DrillPoints}</span>
         </div>
         <div className="container_center">
-          <span>Contract Points: </span>
+          <span>Contract Points: {this.state.ContractPoints}</span>
         </div>
       </React.Fragment>
     );
