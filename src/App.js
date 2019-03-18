@@ -17,7 +17,17 @@ class App extends Component {
     finaljson: "",
     actualvolume: 0,
     finalvolume: 0,
-    shiftvolume: 0
+    shiftvolume: 0,
+    drillPlan: 0,
+    openPhaseWeight: 0,
+    PilotPlan: 0,
+    DrillWeight: 0,
+    OpenPhasePoint: 0,
+    DrillPoints: 0,
+    ContractPoints: 0,
+    TotalVolumes: 0,
+    PilotVolume: 0,
+    OpenPhaseVolume: 0
   };
   seddCalculationRef = new seddCalculation();
   workUnitList = [];
@@ -77,26 +87,9 @@ class App extends Component {
         break;
     }
 
-    // startprogresslist.map(unit => {
-    //   const target = this.workUnitList.filter(
-    //     workunit => workunit.diameter === Number(unit.diameter)
-    //   );
-    //   if (target.length > 0) {
-    //     const obj = {
-    //       diameter: unit.diameter,
-    //       distance: Number(unit.distance) + Number(target[0].distance)
-    //     };
-    //     this.finalprogressList.push(obj);
-    //   } else {
-    //     this.finalprogressList.push(unit);
-    //   }
-    // });
-    //debugger;
-    //this.finalprogressList = startprogresslist.concat(this.workUnitList);
     this.finalprogressList = toArray(
       fromProgressArray(startprogresslist.concat(this.workUnitList))
     );
-    debugger;
     console.log(calculate(toArray(fromProgressArray(DataSource.checkArray))));
     switch (flag) {
       case 1:
@@ -131,11 +124,6 @@ class App extends Component {
       default:
         break;
     }
-    // const updatedState = { ...this.state };
-    // updatedState.actualvolume = startingarray();
-    // // updatedState.finalvolume = targetfinal;
-    // // updatedState.shiftvolume = targetfinal - startfinal;
-    // this.setState(updatedState);
   }
 
   onconversion = () => {
@@ -198,11 +186,11 @@ class App extends Component {
             <input type="text" />
           </div>
           {/* <div className="container_json">
-            <span>Total Volume</span>
-            <br/>
-            <span>Pilot Volume</span>
-            <br/>
-            <span>Open Phase Volume</span>
+            <span>Total Volume:</span>
+            <br />
+            <span>Pilot Volume:</span>
+            <br />
+            <span>Open Phase Volume:</span>
           </div> */}
           <div className="container_json">
             <span>
@@ -216,7 +204,7 @@ class App extends Component {
             <span>Starting Volume:{this.state.actualvolume}</span>
           </div>
           <div className="container_json">
-            <span>Raw Json</span>
+            <span>Shift WorkUnits:</span>
             <textarea
               onChange={ev => this.onSourceChange(ev)}
               value={this.state.sourcejson}
@@ -246,7 +234,7 @@ class App extends Component {
         </div>
         <div className="container_button">
           <button onClick={() => this.onconversion()}>
-            Convert to Segments
+            Calculate Progress
           </button>
         </div>
         <div className="container_center">
