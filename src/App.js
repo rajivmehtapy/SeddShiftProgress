@@ -27,7 +27,8 @@ class App extends Component {
     ContractPoints: 0,
     TotalVolumes: 0,
     PilotVolume: 0,
-    OpenPhaseVolume: 0
+    OpenPhaseVolume: 0,
+    shiftVolumeDisplay: 0
   };
   seddCalculationRef = new seddCalculation();
   workUnitList = [];
@@ -66,6 +67,7 @@ class App extends Component {
         });
       });
     } else {
+      //this.workUnitList = JSON.parse(this.state.sourcejson);
       JSON.parse(this.state.sourcejson).shiftPhaseProgress.map(shift => {
         shift.workUnits.map(workunit => {
           this.workUnitList.push({
@@ -92,6 +94,15 @@ class App extends Component {
     this.finalprogressList = toArray(
       fromProgressArray(startprogresslist.concat(this.workUnitList))
     );
+    const TotalVolume = calculate(
+      toArray(fromProgressArray([JSON.parse(this.state.drillPlan)]))
+    );
+    const PilotVolume = calculate(
+      toArray(fromProgressArray([JSON.parse(this.state.PilotPlan)]))
+    );
+    const OpenPhasePoint =
+      startingarray(this.workUnitList) / (TotalVolume - PilotVolume);
+    const DrillPoints = OpenPhasePoint * this.state.openPhaseWeight;
     switch (flag) {
       case 1:
         this.setState({
@@ -100,13 +111,15 @@ class App extends Component {
           shiftvolume: startingarray(this.workUnitList),
           finalvolume: startingarray(this.finalprogressList),
           finaljson: JSON.stringify(this.finalprogressList),
-          TotalVolumes: calculate(
-            toArray(fromProgressArray([JSON.parse(this.state.drillPlan)]))
-          ),
-          //this.state.PilotPlan
-          PilotVolume: calculate(
-            toArray(fromProgressArray([JSON.parse(this.state.PilotPlan)]))
-          )
+          TotalVolumes: TotalVolume,
+          PilotVolume: PilotVolume,
+          OpenPhaseVolume: TotalVolume - PilotVolume,
+          OpenPhasePoint: OpenPhasePoint,
+          DrillPoints: DrillPoints,
+          ContractPoints: DrillPoints / this.state.DrillWeight,
+          shiftVolumeDisplay:
+            startingarray(this.finalprogressList) -
+            startingarray(JSON.parse(this.state.actualjson))
         });
         break;
       case 2:
@@ -116,7 +129,16 @@ class App extends Component {
           shiftvolume: startingarray(this.workUnitList),
           finalvolume: startingarray(this.finalprogressList),
           actualjson: startjson,
-          finaljson: JSON.stringify(this.finalprogressList)
+          finaljson: JSON.stringify(this.finalprogressList),
+          TotalVolumes: TotalVolume,
+          PilotVolume: PilotVolume,
+          OpenPhaseVolume: TotalVolume - PilotVolume,
+          OpenPhasePoint: OpenPhasePoint,
+          DrillPoints: DrillPoints,
+          ContractPoints: DrillPoints / this.state.DrillWeight,
+          shiftVolumeDisplay:
+            startingarray(this.finalprogressList) -
+            startingarray(JSON.parse(this.state.actualjson))
         });
         break;
       case 3:
@@ -126,7 +148,16 @@ class App extends Component {
           shiftvolume: startingarray(this.workUnitList),
           finalvolume: startingarray(this.finalprogressList),
           sourcejson: startjson,
-          finaljson: JSON.stringify(this.finalprogressList)
+          finaljson: JSON.stringify(this.finalprogressList),
+          TotalVolumes: TotalVolume,
+          PilotVolume: PilotVolume,
+          OpenPhaseVolume: TotalVolume - PilotVolume,
+          OpenPhasePoint: OpenPhasePoint,
+          DrillPoints: DrillPoints,
+          ContractPoints: DrillPoints / this.state.DrillWeight,
+          shiftVolumeDisplay:
+            startingarray(this.finalprogressList) -
+            startingarray(JSON.parse(this.state.actualjson))
         });
         break;
       default:
@@ -217,6 +248,7 @@ class App extends Component {
               value={this.state.DrillWeight}
             />
           </div>
+          <div>Open Phase Volume:{this.state.OpenPhaseVolume}</div>
           {/* <div className="container_json">
             <span>Total Volume:</span>
             <br />
@@ -269,6 +301,10 @@ class App extends Component {
             Calculate Progress
           </button>
         </div>
+        <div className="container_center">
+          <span>Shift Volume: {this.state.shiftVolumeDisplay}</span>
+        </div>
+
         <div className="container_center">
           <span>Open Phase Point: {this.state.OpenPhasePoint}</span>
         </div>
