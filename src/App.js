@@ -185,6 +185,26 @@ class App extends Component {
       <React.Fragment>
         <div className="App container_info">
           <div className="container_json">
+            <span>Drill Plan</span>
+            <input type="text" />
+            <span>Open Phase Weight</span>
+            <input type="text" />
+          </div>
+
+          <div className="container_json">
+            <span>Pilot Plan</span>
+            <input type="text" />
+            <span>Drill Weight</span>
+            <input type="text" />
+          </div>
+          {/* <div className="container_json">
+            <span>Total Volume</span>
+            <br/>
+            <span>Pilot Volume</span>
+            <br/>
+            <span>Open Phase Volume</span>
+          </div> */}
+          <div className="container_json">
             <span>
               Starting <br /> ProgressArray
             </span>
@@ -228,6 +248,15 @@ class App extends Component {
           <button onClick={() => this.onconversion()}>
             Convert to Segments
           </button>
+        </div>
+        <div className="container_center">
+          <span>Open Phase Point: </span>
+        </div>
+        <div className="container_center">
+          <span>Drill Points: </span>
+        </div>
+        <div className="container_center">
+          <span>Contract Points: </span>
         </div>
       </React.Fragment>
     );
