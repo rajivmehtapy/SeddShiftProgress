@@ -194,11 +194,26 @@ class App extends Component {
   onSaveSnapShot = () => {
     const updatedState = { ...this.state };
     delete updatedState.snapShots;
-    this.state.snapShots.push({ id: "x", info: updatedState });
+    this.state.snapShots.push({ id: this.create_UUID(), info: updatedState });
     this.setState({ ...this.state });
     debugger;
   };
 
+ addSnapShot = (id,obj) => {
+   debugger
+   //alert(id);
+    
+ }
+
+ create_UUID = () => {
+    var dt = new Date().getTime();
+    var uuid = 'xxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
   render() {
     return (
       <React.Fragment>
@@ -252,6 +267,13 @@ class App extends Component {
             />
             <span>Starting Volume:{this.state.actualvolume}</span>
           </div>
+          <div>
+            {this.state.snapShots.map(snap => 
+              <div style={{color:"blue",cursor:"pointer"}} key={snap.id} onClick={(ev,snap)=>this.addSnapShot(ev,snap)}> 
+              {snap.id}
+              </div>
+            )}
+          </div>
           <div className="container_json">
             <span>Shift WorkUnits:</span>
             <textarea
@@ -260,7 +282,6 @@ class App extends Component {
               className="textarea_source"
             />
           </div>
-
           <div className="container_json">
             <span>
               Ending <br /> ProgressArray
@@ -282,7 +303,6 @@ class App extends Component {
         <div className="container_center">
           <span>Shift Volume: {this.state.shiftVolumeDisplay}</span>
         </div>
-
         <div className="container_center">
           <span>Open Phase Point: {this.state.OpenPhasePoint}</span>
         </div>
