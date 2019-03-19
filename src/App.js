@@ -47,7 +47,21 @@ class App extends Component {
     this.calculateFinalProgress(2, e.currentTarget.value);
   };
 
-  onDrillPlan = () => {};
+  onDrillPlan = e => {
+    this.setState({ ...this.state, drillPlan: e.currentTarget.value }, () => {
+      this.calculateFinalProgress(2, this.state.actualjson);
+    });
+  };
+
+  onOpenPhaseWeight = e => {
+    this.setState(
+      { ...this.state, openPhaseWeight: e.currentTarget.value },
+      () => {
+        this.calculateFinalProgress(2, this.state.actualjson);
+      }
+    );
+  };
+
   componentDidMount() {
     this.calculateFinalProgress(1);
   }
@@ -218,9 +232,20 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className= "App container_info" style={{float: "left"}}>
-        <div style={{border: "black 1px",borderStyle: "inset",padding: "14px",margin: "10px"}}>
-          SnapShots
+        <div
+          className="App container_info"
+          style={{ float: "left", display: "none" }}
+        >
+          <div
+            style={{
+              border: "black 1px",
+              borderStyle: "inset",
+              padding: "14px",
+              margin: "10px",
+              display: "none"
+            }}
+          >
+            SnapShots
             {this.state.snapShots.map(snap => (
               <div
                 style={{ color: "blue", cursor: "pointer" }}
@@ -237,7 +262,9 @@ class App extends Component {
             <span>Drill Plan</span>
             <input
               type="text"
-              onChange={() => {}}
+              onChange={e => {
+                this.onDrillPlan(e);
+              }}
               value={this.state.drillPlan}
             />
             <span style={{ marginRight: "25px" }}>
@@ -247,7 +274,9 @@ class App extends Component {
             <span>Open Phase Weight</span>
             <input
               type="text"
-              onChange={() => {}}
+              onChange={e => {
+                this.onOpenPhaseWeight(e);
+              }}
               value={this.state.openPhaseWeight}
             />
           </div>
@@ -306,7 +335,7 @@ class App extends Component {
           <button onClick={() => this.onconversion()}>
             Calculate Progress
           </button>
-          <button onClick={() => this.onSaveSnapShot()}>Save SnapShot</button>
+          {/* <button onClick={() => this.onSaveSnapShot()}>Save SnapShot</button> */}
         </div>
         <div className="container_center">
           <span>Shift Volume: {this.state.shiftVolumeDisplay}</span>
