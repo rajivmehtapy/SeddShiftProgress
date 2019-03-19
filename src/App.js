@@ -196,24 +196,25 @@ class App extends Component {
     delete updatedState.snapShots;
     this.state.snapShots.push({ id: this.create_UUID(), info: updatedState });
     this.setState({ ...this.state });
-    debugger;
   };
 
- addSnapShot = (obj) => {
-   
-  
-   
- }
+  getSnapShot = obj => {
+    const target = this.state.snapShots.filter(snap => obj.id === snap.id)[0];
+    const snapshots = JSON.parse(JSON.stringify(this.state.snapShots));
+    let updatedState = target.info;
+    updatedState["snapShots"] = snapshots;
+    this.setState(updatedState);
+  };
 
- create_UUID = () => {
+  create_UUID = () => {
     var dt = new Date().getTime();
-    var uuid = 'xxxx'.replace(/[xy]/g, function(c) {
-        var r = (dt + Math.random()*16)%16 | 0;
-        dt = Math.floor(dt/16);
-        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    var uuid = "xxxx".replace(/[xy]/g, function(c) {
+      var r = (dt + Math.random() * 16) % 16 | 0;
+      dt = Math.floor(dt / 16);
+      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
     });
     return uuid;
-}
+  };
   render() {
     return (
       <React.Fragment>
@@ -268,11 +269,15 @@ class App extends Component {
             <span>Starting Volume:{this.state.actualvolume}</span>
           </div>
           <div>
-            {this.state.snapShots.map(snap => 
-              <div style={{color:"blue",cursor:"pointer"}} key={snap.id} onClick={()=>this.addSnapShot(snap)}> 
-              {snap.id}
+            {this.state.snapShots.map(snap => (
+              <div
+                style={{ color: "blue", cursor: "pointer" }}
+                key={snap.id}
+                onClick={() => this.getSnapShot(snap)}
+              >
+                {snap.id}
               </div>
-            )}
+            ))}
           </div>
           <div className="container_json">
             <span>Shift WorkUnits:</span>
