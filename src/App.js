@@ -37,14 +37,12 @@ class App extends Component {
   onSourceChange = ev => {
     const updatestate = { ...this.state };
     updatestate.sourcejson = ev.currentTarget.value;
-    //this.setState(updatestate);
     this.calculateFinalProgress(3, ev.currentTarget.value);
   };
 
   onActualChange = e => {
     const actualstate = { ...this.state };
     actualstate.actualjson = e.currentTarget.value;
-    //this.setState(actualstate);
     this.calculateFinalProgress(2, e.currentTarget.value);
   };
 
@@ -56,33 +54,13 @@ class App extends Component {
   calculateFinalProgress(flag, startjson) {
     this.finalprogressList = [];
     this.workUnitList = [];
-    // eslint-disable-next-line default-case
     if (flag == 3) {
-      debugger;
       this.workUnitList = JSON.parse(startjson);
-      // JSON.parse(startjson).shiftPhaseProgress.map(shift => {
-
-      //   shift.workUnits.map(workunit => {
-      //     this.workUnitList.push({
-      //       diameter: workunit.boreSize,
-      //       distance: workunit.distance
-      //     });
-      //   });
-      // });
     } else {
       this.workUnitList = JSON.parse(this.state.sourcejson);
-      // JSON.parse(this.state.sourcejson).shiftPhaseProgress.map(shift => {
-      //   shift.workUnits.map(workunit => {
-      //     this.workUnitList.push({
-      //       diameter: workunit.boreSize,
-      //       distance: workunit.distance
-      //     });
-      //   });
-      // });
     }
 
     var startprogresslist = [];
-    // eslint-disable-next-line default-case
     switch (flag) {
       case 1:
         startprogresslist = JSON.parse(this.state.actualjson);
@@ -107,7 +85,6 @@ class App extends Component {
     const OpenPhasePoint =
       startingarray(this.workUnitList) / (TotalVolume - PilotVolume);
     const DrillPoints = OpenPhasePoint * this.state.openPhaseWeight;
-    debugger;
     switch (flag) {
       case 1:
         this.setState({
@@ -254,13 +231,6 @@ class App extends Component {
             />
           </div>
           <div>Open Phase Volume:{this.state.OpenPhaseVolume}</div>
-          {/* <div className="container_json">
-            <span>Total Volume:</span>
-            <br />
-            <span>Pilot Volume:</span>
-            <br />
-            <span>Open Phase Volume:</span>
-          </div> */}
           <div className="container_json">
             <span>
               Starting <br /> ProgressArray
@@ -279,16 +249,8 @@ class App extends Component {
               value={this.state.sourcejson}
               className="textarea_source"
             />
-            {/* <span>Shift Volume:{this.state.shiftvolume}</span> */}
           </div>
-          {/* <div className="container_json">
-            <span>Target Json</span>
-            <textarea
-              readOnly
-              value={this.state.targetjson}
-              className="textarea_target"
-            />
-          </div> */}
+    
           <div className="container_json">
             <span>
               Ending <br /> ProgressArray

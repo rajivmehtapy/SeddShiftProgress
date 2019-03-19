@@ -74,22 +74,4 @@ export default class DataSource {
     { diameter: 11, distance: 25 }
   ];
 
-  // static ActualArray = `[
-  //    {"diameter": 54,"distance": 9},
-  //    {"diameter": 42,"distance": 3},
-  //    {"diameter": 40,"distance": 70},
-  //    {"diameter": 36,"distance": 18},
-  //    {"diameter": 30,"distance": 200},
-  //    {"diameter": 24,"distance": 300},
-  //    {"diameter": 11,"distance": 100},
-  //    {"diameter": 7, "distance": 10},
-  //    {"diameter": 2, "distance": 989}
-  // ]`;
-
-  //   static FinalArray = `[
-  //   { "diameter": 36, "distance": 150 },
-  //   { "diameter": 30, "distance": 200 },
-  //   { "diameter": 24, "distance": 300 },
-  //   { "diameter": 11, "distance": 100 }
-  // ]`;
 }
