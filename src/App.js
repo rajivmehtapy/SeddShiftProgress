@@ -28,7 +28,8 @@ class App extends Component {
     TotalVolumes: 0,
     PilotVolume: 0,
     OpenPhaseVolume: 0,
-    shiftVolumeDisplay: 0
+    shiftVolumeDisplay: 0,
+    snapShots: []
   };
   seddCalculationRef = new seddCalculation();
   workUnitList = [];
@@ -61,6 +62,7 @@ class App extends Component {
     }
 
     var startprogresslist = [];
+    // eslint-disable-next-line default-case
     switch (flag) {
       case 1:
         startprogresslist = JSON.parse(this.state.actualjson);
@@ -189,6 +191,14 @@ class App extends Component {
     this.setState(updatedState);
   };
 
+  onSaveSnapShot = () => {
+    const updatedState = { ...this.state };
+    delete updatedState.snapShots;
+    this.state.snapShots.push({ id: "x", info: updatedState });
+    this.setState({ ...this.state });
+    debugger;
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -250,7 +260,7 @@ class App extends Component {
               className="textarea_source"
             />
           </div>
-    
+
           <div className="container_json">
             <span>
               Ending <br /> ProgressArray
@@ -267,6 +277,7 @@ class App extends Component {
           <button onClick={() => this.onconversion()}>
             Calculate Progress
           </button>
+          <button onClick={() => this.onSaveSnapShot()}>Save SnapShot</button>
         </div>
         <div className="container_center">
           <span>Shift Volume: {this.state.shiftVolumeDisplay}</span>
