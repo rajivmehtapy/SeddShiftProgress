@@ -218,6 +218,20 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
+        <div className= "App container_info" style={{float: "left"}}>
+        <div style={{border: "black 1px",borderStyle: "inset",padding: "14px",margin: "10px"}}>
+          SnapShots
+            {this.state.snapShots.map(snap => (
+              <div
+                style={{ color: "blue", cursor: "pointer" }}
+                key={snap.id}
+                onClick={() => this.getSnapShot(snap)}
+              >
+                {snap.id}
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="App container_info">
           <div className="container_json">
             <span>Drill Plan</span>
@@ -267,17 +281,6 @@ class App extends Component {
               className="textarea_target"
             />
             <span>Starting Volume:{this.state.actualvolume}</span>
-          </div>
-          <div>
-            {this.state.snapShots.map(snap => (
-              <div
-                style={{ color: "blue", cursor: "pointer" }}
-                key={snap.id}
-                onClick={() => this.getSnapShot(snap)}
-              >
-                {snap.id}
-              </div>
-            ))}
           </div>
           <div className="container_json">
             <span>Shift WorkUnits:</span>
