@@ -1,9 +1,7 @@
 export default class DataSource {
   static ShiftWorkUnits = `  [
-    { "diameter": 36, "distance": 100 },
-    { "diameter": 30, "distance": 250 },
-    { "diameter": 24, "distance": 325 },
-    { "diameter": 11, "distance": 25 }
+    { "diameter": 30, "distance": 150 },
+    { "diameter": 24, "distance": 100 }
   ]
 `;
 

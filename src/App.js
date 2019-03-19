@@ -11,7 +11,7 @@ const finalarray = progress => toVolume(fromProgressArray(progress));
 
 class App extends Component {
   state = {
-    sourcejson: DataSource.ShiftInfo,
+    sourcejson: DataSource.ShiftWorkUnits,
     targetjson: DataSource.TargetInfo,
     actualjson: DataSource.ActualArray,
     finaljson: "",
@@ -58,25 +58,29 @@ class App extends Component {
     this.workUnitList = [];
     // eslint-disable-next-line default-case
     if (flag == 3) {
-      JSON.parse(startjson).shiftPhaseProgress.map(shift => {
-        shift.workUnits.map(workunit => {
-          this.workUnitList.push({
-            diameter: workunit.boreSize,
-            distance: workunit.distance
-          });
-        });
-      });
+      debugger;
+      this.workUnitList = JSON.parse(startjson);
+      // JSON.parse(startjson).shiftPhaseProgress.map(shift => {
+
+      //   shift.workUnits.map(workunit => {
+      //     this.workUnitList.push({
+      //       diameter: workunit.boreSize,
+      //       distance: workunit.distance
+      //     });
+      //   });
+      // });
     } else {
-      //this.workUnitList = JSON.parse(this.state.sourcejson);
-      JSON.parse(this.state.sourcejson).shiftPhaseProgress.map(shift => {
-        shift.workUnits.map(workunit => {
-          this.workUnitList.push({
-            diameter: workunit.boreSize,
-            distance: workunit.distance
-          });
-        });
-      });
+      this.workUnitList = JSON.parse(this.state.sourcejson);
+      // JSON.parse(this.state.sourcejson).shiftPhaseProgress.map(shift => {
+      //   shift.workUnits.map(workunit => {
+      //     this.workUnitList.push({
+      //       diameter: workunit.boreSize,
+      //       distance: workunit.distance
+      //     });
+      //   });
+      // });
     }
+
     var startprogresslist = [];
     // eslint-disable-next-line default-case
     switch (flag) {
