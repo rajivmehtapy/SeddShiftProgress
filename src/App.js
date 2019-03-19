@@ -103,6 +103,7 @@ class App extends Component {
     const OpenPhasePoint =
       startingarray(this.workUnitList) / (TotalVolume - PilotVolume);
     const DrillPoints = OpenPhasePoint * this.state.openPhaseWeight;
+    debugger;
     switch (flag) {
       case 1:
         this.setState({
@@ -138,7 +139,7 @@ class App extends Component {
           ContractPoints: DrillPoints / this.state.DrillWeight,
           shiftVolumeDisplay:
             startingarray(this.finalprogressList) -
-            startingarray(JSON.parse(this.state.actualjson))
+            startingarray(JSON.parse(startjson))
         });
         break;
       case 3:
