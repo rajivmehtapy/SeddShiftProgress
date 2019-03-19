@@ -199,10 +199,10 @@ class App extends Component {
     debugger;
   };
 
- addSnapShot = (id,obj) => {
-   debugger
-   //alert(id);
-    
+ addSnapShot = (obj) => {
+   
+  
+   
  }
 
  create_UUID = () => {
@@ -269,7 +269,7 @@ class App extends Component {
           </div>
           <div>
             {this.state.snapShots.map(snap => 
-              <div style={{color:"blue",cursor:"pointer"}} key={snap.id} onClick={(ev,snap)=>this.addSnapShot(ev,snap)}> 
+              <div style={{color:"blue",cursor:"pointer"}} key={snap.id} onClick={()=>this.addSnapShot(snap)}> 
               {snap.id}
               </div>
             )}
