@@ -62,6 +62,22 @@ class App extends Component {
     );
   };
 
+  onPilotPlan = e => {
+    this.setState(
+      {...this.state, PilotPlan: e.currentTarget.value},()=>{
+        this.calculateFinalProgress(2, this.state.actualjson);
+      }
+    );
+  };
+
+  onDrillWeight = e => {
+    this.setState(
+      {...this.state, DrillWeight: e.currentTarget.value},()=>{
+        this.calculateFinalProgress(2,this.state.actualjson);
+      }
+    );
+  };
+
   componentDidMount() {
     this.calculateFinalProgress(1);
   }
@@ -285,7 +301,7 @@ class App extends Component {
             <span>Pilot Plan</span>
             <input
               type="text"
-              onChange={() => {}}
+              onChange={e  => { this.onPilotPlan(e);}}
               value={this.state.PilotPlan}
             />
             <span style={{ marginRight: "25px" }}>
@@ -295,7 +311,7 @@ class App extends Component {
             <span>Drill Weight</span>
             <input
               type="text"
-              onChange={() => {}}
+              onChange={e => { this.onDrillWeight(e);}}
               value={this.state.DrillWeight}
             />
           </div>
