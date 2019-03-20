@@ -36,15 +36,27 @@ class App extends Component {
   finalprogressList = [];
 
   onSourceChange = ev => {
-    const updatestate = { ...this.state };
-    updatestate.sourcejson = ev.currentTarget.value;
-    this.calculateFinalProgress(3, ev.currentTarget.value);
+    if (ev.key === "Enter") {
+      const updatestate = { ...this.state };
+      updatestate.sourcejson = ev.currentTarget.value;
+      this.calculateFinalProgress(3, ev.currentTarget.value);
+    }
+  };
+
+  onSourceChangeUser = ev => {
+    this.setState({ ...this.state, sourcejson: ev.currentTarget.value });
   };
 
   onActualChange = e => {
-    const actualstate = { ...this.state };
-    actualstate.actualjson = e.currentTarget.value;
-    this.calculateFinalProgress(2, e.currentTarget.value);
+    if (e.key === "Enter") {
+      const actualstate = { ...this.state };
+      actualstate.actualjson = e.currentTarget.value;
+      this.calculateFinalProgress(2, e.currentTarget.value);
+    }
+  };
+
+  onActualChangeUser = e => {
+    this.setState({ ...this.state, actualjson: e.currentTarget.value });
   };
 
   onDrillPlan = e => {
@@ -78,7 +90,7 @@ class App extends Component {
     this.calculateFinalProgress(1);
   }
 
-  calculateFinalProgress(flag, startjson) {
+  calculateFinalProgress = (flag, startjson) => {
     this.finalprogressList = [];
     this.workUnitList = [];
     if (flag == 3) {
@@ -190,7 +202,7 @@ class App extends Component {
       default:
         break;
     }
-  }
+  };
 
   onconversion = () => {
     const phases = JSON.parse(this.state.sourcejson).shiftPhaseProgress;
@@ -337,7 +349,8 @@ class App extends Component {
               Starting <br /> ProgressArray
             </span>
             <textarea
-              onChange={e => this.onActualChange(e)}
+              onKeyPress={e => this.onActualChange(e)}
+              onChange={e => this.onActualChangeUser(e)}
               value={this.state.actualjson}
               className="textarea_target"
             />
@@ -346,7 +359,8 @@ class App extends Component {
           <div className="container_json">
             <span>Shift WorkUnits:</span>
             <textarea
-              onChange={ev => this.onSourceChange(ev)}
+              onKeyPress={ev => this.onSourceChange(ev)}
+              onChange={ev => this.onSourceChangeUser(ev)}
               value={this.state.sourcejson}
               className="textarea_source"
             />
