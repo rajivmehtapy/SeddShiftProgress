@@ -63,19 +63,15 @@ class App extends Component {
   };
 
   onPilotPlan = e => {
-    this.setState(
-      {...this.state, PilotPlan: e.currentTarget.value},()=>{
-        this.calculateFinalProgress(2, this.state.actualjson);
-      }
-    );
+    this.setState({ ...this.state, PilotPlan: e.currentTarget.value }, () => {
+      this.calculateFinalProgress(2, this.state.actualjson);
+    });
   };
 
   onDrillWeight = e => {
-    this.setState(
-      {...this.state, DrillWeight: e.currentTarget.value},()=>{
-        this.calculateFinalProgress(2,this.state.actualjson);
-      }
-    );
+    this.setState({ ...this.state, DrillWeight: e.currentTarget.value }, () => {
+      this.calculateFinalProgress(2, this.state.actualjson);
+    });
   };
 
   componentDidMount() {
@@ -114,11 +110,16 @@ class App extends Component {
     const PilotVolume = calculate(
       toArray(fromProgressArray([JSON.parse(this.state.PilotPlan)]))
     );
-    const OpenPhasePoint =
-      startingarray(this.workUnitList) / (TotalVolume - PilotVolume);
-    const DrillPoints = OpenPhasePoint * this.state.openPhaseWeight;
+
     switch (flag) {
       case 1:
+        const shiftvolume =
+          startingarray(this.finalprogressList) -
+          startingarray(JSON.parse(this.state.actualjson));
+        const OpenPhasePoint = shiftvolume / (TotalVolume - PilotVolume);
+        const DrillPoints = OpenPhasePoint * (this.state.openPhaseWeight / 100);
+        const ContractPoints = DrillPoints * (this.state.DrillWeight / 100);
+
         this.setState({
           ...this.state,
           actualvolume: startingarray(JSON.parse(this.state.actualjson)),
@@ -130,13 +131,21 @@ class App extends Component {
           OpenPhaseVolume: TotalVolume - PilotVolume,
           OpenPhasePoint: OpenPhasePoint,
           DrillPoints: DrillPoints,
-          ContractPoints: DrillPoints / this.state.DrillWeight,
+          ContractPoints: ContractPoints,
           shiftVolumeDisplay:
             startingarray(this.finalprogressList) -
             startingarray(JSON.parse(this.state.actualjson))
         });
         break;
       case 2:
+        const shiftvolume2 =
+          startingarray(this.finalprogressList) -
+          startingarray(JSON.parse(startjson));
+        const OpenPhasePoint2 = shiftvolume2 / (TotalVolume - PilotVolume);
+        const DrillPoints2 =
+          OpenPhasePoint2 * (this.state.openPhaseWeight / 100);
+        const ContractPoints2 = DrillPoints2 * (this.state.DrillWeight / 100);
+
         this.setState({
           ...this.state,
           actualvolume: startingarray(JSON.parse(startjson)),
@@ -147,15 +156,21 @@ class App extends Component {
           TotalVolumes: TotalVolume,
           PilotVolume: PilotVolume,
           OpenPhaseVolume: TotalVolume - PilotVolume,
-          OpenPhasePoint: OpenPhasePoint,
-          DrillPoints: DrillPoints,
-          ContractPoints: DrillPoints / this.state.DrillWeight,
-          shiftVolumeDisplay:
-            startingarray(this.finalprogressList) -
-            startingarray(JSON.parse(startjson))
+          OpenPhasePoint: OpenPhasePoint2,
+          DrillPoints: DrillPoints2,
+          ContractPoints: ContractPoints2,
+          shiftVolumeDisplay: shiftvolume2
         });
         break;
       case 3:
+        const shiftvolume3 =
+          startingarray(this.finalprogressList) -
+          startingarray(JSON.parse(this.state.actualjson));
+        const OpenPhasePoint3 = shiftvolume3 / (TotalVolume - PilotVolume);
+        const DrillPoints3 =
+          OpenPhasePoint3 * (this.state.openPhaseWeight / 100);
+        const ContractPoints3 = DrillPoints3 * (this.state.DrillWeight / 100);
+
         this.setState({
           ...this.state,
           actualvolume: startingarray(JSON.parse(this.state.actualjson)),
@@ -166,12 +181,10 @@ class App extends Component {
           TotalVolumes: TotalVolume,
           PilotVolume: PilotVolume,
           OpenPhaseVolume: TotalVolume - PilotVolume,
-          OpenPhasePoint: OpenPhasePoint,
-          DrillPoints: DrillPoints,
-          ContractPoints: DrillPoints / this.state.DrillWeight,
-          shiftVolumeDisplay:
-            startingarray(this.finalprogressList) -
-            startingarray(JSON.parse(this.state.actualjson))
+          OpenPhasePoint: OpenPhasePoint3,
+          DrillPoints: DrillPoints3,
+          ContractPoints: ContractPoints3,
+          shiftVolumeDisplay: shiftvolume3
         });
         break;
       default:
@@ -210,7 +223,6 @@ class App extends Component {
     ]);
     console.log("Progress Array", this.state.actualjson);
     console.log("Shift Volume", targetfinal - startfinal);
-    // console.log("volume", obj);
     console.log("Actual volume", startfinal);
     console.log("Final Array", this.state.finaljson);
     console.log("Final Volume", targetfinal);
@@ -301,7 +313,9 @@ class App extends Component {
             <span>Pilot Plan</span>
             <input
               type="text"
-              onChange={e  => { this.onPilotPlan(e);}}
+              onChange={e => {
+                this.onPilotPlan(e);
+              }}
               value={this.state.PilotPlan}
             />
             <span style={{ marginRight: "25px" }}>
@@ -311,7 +325,9 @@ class App extends Component {
             <span>Drill Weight</span>
             <input
               type="text"
-              onChange={e => { this.onDrillWeight(e);}}
+              onChange={e => {
+                this.onDrillWeight(e);
+              }}
               value={this.state.DrillWeight}
             />
           </div>
