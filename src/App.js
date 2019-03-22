@@ -204,47 +204,6 @@ class App extends Component {
     }
   };
 
-  onconversion = () => {
-    const phases = JSON.parse(this.state.sourcejson).shiftPhaseProgress;
-    const target = JSON.parse(this.state.targetjson);
-    const actual = JSON.parse(this.state.actualjson);
-    const final = JSON.parse(this.state.finaljson);
-
-    this.seddCalculationRef.convertToSegment(
-      phases,
-      target,
-      calculate(actual),
-      calculate(final)
-    );
-    //this.seddCalculationRef.{ distance: 100, diameter: 30 0};
-    const obj = calculate([
-      { diameter: "30", distance: "100" },
-      { diameter: "32", distance: "100" }
-    ]);
-    const startfinal = startingarray([
-      { diameter: "36", distance: "100" },
-      { diameter: "30", distance: "200" },
-      { diameter: "24", distance: "300" },
-      { diameter: "11", distance: "100" }
-    ]);
-    const targetfinal = finalarray([
-      { diameter: "36", distance: "150" },
-      { diameter: "30", distance: "200" },
-      { diameter: "24", distance: "300" },
-      { diameter: "11", distance: "100" }
-    ]);
-    console.log("Progress Array", this.state.actualjson);
-    console.log("Shift Volume", targetfinal - startfinal);
-    console.log("Actual volume", startfinal);
-    console.log("Final Array", this.state.finaljson);
-    console.log("Final Volume", targetfinal);
-    const updatedState = { ...this.state };
-    updatedState.actualvolume = startfinal;
-    updatedState.finalvolume = targetfinal;
-    updatedState.shiftvolume = targetfinal - startfinal;
-    this.setState(updatedState);
-  };
-
   onSaveSnapShot = () => {
     const updatedState = { ...this.state };
     delete updatedState.snapShots;
@@ -272,128 +231,167 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <div
-          className="App container_info"
-          style={{ float: "left", display: "none" }}
-        >
-          <div
-            style={{
-              border: "black 1px",
-              borderStyle: "inset",
-              padding: "14px",
-              margin: "10px",
-              display: "none"
-            }}
-          >
-            SnapShots
-            {this.state.snapShots.map(snap => (
-              <div
-                style={{ color: "blue", cursor: "pointer" }}
-                key={snap.id}
-                onClick={() => this.getSnapShot(snap)}
-              >
-                {snap.id}
+        <div className="main_container">
+          <div className="App container_info left-side">
+            <div>
+              SnapShots
+              {this.state.snapShots.map(snap => (
+                <div
+                  style={{ color: "blue", cursor: "pointer" }}
+                  key={snap.id}
+                  onClick={() => this.getSnapShot(snap)}
+                >
+                  {snap.id}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="App container_info right-side">
+            <div className="container_json first_row">
+              <div>
+                <span>Drill Plan : </span>
+                <input
+                  type="text"
+                  onChange={e => {
+                    this.onDrillPlan(e);
+                  }}
+                  value={this.state.drillPlan}
+                />
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="App container_info">
-          <div className="container_json">
-            <span>Drill Plan</span>
-            <input
-              type="text"
-              onChange={e => {
-                this.onDrillPlan(e);
-              }}
-              value={this.state.drillPlan}
-            />
-            <span style={{ marginRight: "25px" }}>
-              Total Volume:{this.state.TotalVolumes}
-            </span>
+              <div>
+                Total Volume :
+                {this.state.TotalVolumes.toFixed(DataSource.DECIMAL_POINTS)}
+              </div>
+              <div>
+                <span>Open Phase Weight : </span>
+                <input
+                  id="openphaseweight"
+                  type="text"
+                  onChange={e => {
+                    this.onOpenPhaseWeight(e);
+                  }}
+                  value={this.state.openPhaseWeight}
+                />
+              </div>
+            </div>
 
-            <span>Open Phase Weight</span>
-            <input
-              type="text"
-              onChange={e => {
-                this.onOpenPhaseWeight(e);
+            <div className="container_json first_row">
+              <div>
+                <span>Pilot Plan : </span>
+                <input
+                  type="text"
+                  onChange={e => {
+                    this.onPilotPlan(e);
+                  }}
+                  value={this.state.PilotPlan}
+                />
+              </div>
+              <span>
+                Pilot Volume :
+                {this.state.PilotVolume.toFixed(DataSource.DECIMAL_POINTS)}
+              </span>
+              <div>
+                <span>Drill Weight : </span>
+                <input
+                  type="text"
+                  style={{ width: "40px" }}
+                  onChange={e => {
+                    this.onDrillWeight(e);
+                  }}
+                  value={this.state.DrillWeight}
+                />
+              </div>
+            </div>
+            <div style={{ margin: "5px" }}>
+              Open Phase Volume :
+              {this.state.OpenPhaseVolume.toFixed(DataSource.DECIMAL_POINTS)}
+            </div>
+            <div className="container_json second-row">
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <span>Starting ProgressArray :</span>
+                <textarea
+                  onKeyPress={e => this.onActualChange(e)}
+                  onChange={e => this.onActualChangeUser(e)}
+                  value={this.state.actualjson}
+                  className="textarea_target"
+                />
+              </div>
+              <span>
+                Starting Volume:
+                {this.state.actualvolume.toFixed(DataSource.DECIMAL_POINTS)}
+              </span>
+            </div>
+            <div className="container_json second-row">
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <span>Shift WorkUnits:</span>
+                <textarea
+                  onKeyPress={ev => this.onSourceChange(ev)}
+                  onChange={ev => this.onSourceChangeUser(ev)}
+                  value={this.state.sourcejson}
+                  className="textarea_source"
+                />
+              </div>
+            </div>
+            <div className="container_json second-row">
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <span>Ending ProgressArray :</span>
+                <textarea
+                  readOnly
+                  value={this.state.finaljson}
+                  className="textarea_target"
+                />
+              </div>
+              <span>
+                Ending Volume:
+                {this.state.finalvolume.toFixed(DataSource.DECIMAL_POINTS)}
+              </span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%"
               }}
-              value={this.state.openPhaseWeight}
-            />
+            >
+              <div className="container_button">
+                <button onClick={() => this.onSaveSnapShot()}>
+                  Save SnapShot
+                </button>
+              </div>
+              <div style={{ textAlign: "left", padding: "15px" }}>
+                <div className="container_center">
+                  <span>
+                    Shift Volume:{" "}
+                    {this.state.shiftVolumeDisplay.toFixed(
+                      DataSource.DECIMAL_POINTS
+                    )}
+                  </span>
+                </div>
+                <div className="container_center">
+                  <span>
+                    Open Phase Point:{" "}
+                    {this.state.OpenPhasePoint.toFixed(
+                      DataSource.DECIMAL_POINTS
+                    )}
+                  </span>
+                </div>
+                <div className="container_center">
+                  <span>
+                    Drill Points:{" "}
+                    {this.state.DrillPoints.toFixed(DataSource.DECIMAL_POINTS)}
+                  </span>
+                </div>
+                <div className="container_center">
+                  <span>
+                    Contract Points:{" "}
+                    {this.state.ContractPoints.toFixed(
+                      DataSource.DECIMAL_POINTS
+                    )}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className="container_json">
-            <span>Pilot Plan</span>
-            <input
-              type="text"
-              onChange={e => {
-                this.onPilotPlan(e);
-              }}
-              value={this.state.PilotPlan}
-            />
-            <span style={{ marginRight: "25px" }}>
-              Pilot Volume:{this.state.PilotVolume}
-            </span>
-
-            <span>Drill Weight</span>
-            <input
-              type="text"
-              onChange={e => {
-                this.onDrillWeight(e);
-              }}
-              value={this.state.DrillWeight}
-            />
-          </div>
-          <div>Open Phase Volume:{this.state.OpenPhaseVolume}</div>
-          <div className="container_json">
-            <span>
-              Starting <br /> ProgressArray
-            </span>
-            <textarea
-              onKeyPress={e => this.onActualChange(e)}
-              onChange={e => this.onActualChangeUser(e)}
-              value={this.state.actualjson}
-              className="textarea_target"
-            />
-            <span>Starting Volume:{this.state.actualvolume}</span>
-          </div>
-          <div className="container_json">
-            <span>Shift WorkUnits:</span>
-            <textarea
-              onKeyPress={ev => this.onSourceChange(ev)}
-              onChange={ev => this.onSourceChangeUser(ev)}
-              value={this.state.sourcejson}
-              className="textarea_source"
-            />
-          </div>
-          <div className="container_json">
-            <span>
-              Ending <br /> ProgressArray
-            </span>
-            <textarea
-              readOnly
-              value={this.state.finaljson}
-              className="textarea_target"
-            />
-            <span>Ending Volume:{this.state.finalvolume}</span>
-          </div>
-        </div>
-        <div className="container_button">
-          <button onClick={() => this.onconversion()}>
-            Calculate Progress
-          </button>
-          {/* <button onClick={() => this.onSaveSnapShot()}>Save SnapShot</button> */}
-        </div>
-        <div className="container_center">
-          <span>Shift Volume: {this.state.shiftVolumeDisplay}</span>
-        </div>
-        <div className="container_center">
-          <span>Open Phase Point: {this.state.OpenPhasePoint}</span>
-        </div>
-        <div className="container_center">
-          <span>Drill Points: {this.state.DrillPoints}</span>
-        </div>
-        <div className="container_center">
-          <span>Contract Points: {this.state.ContractPoints}</span>
         </div>
       </React.Fragment>
     );

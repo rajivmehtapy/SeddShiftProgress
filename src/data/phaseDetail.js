@@ -5,6 +5,8 @@ export default class DataSource {
   ]
 `;
 
+  static DECIMAL_POINTS = 4;
+
   static ShiftInfo = `
 {
   "shiftId": "4575ccb0-64ea-46a8-a909-7e470c006003",

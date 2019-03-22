@@ -2,6 +2,22 @@
   text-align: center;
 }
 
+#openphaseweight {
+  width: 40px;
+}
+
+input[type="text"] {
+  border: none;
+  width: 200px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.main_container {
+  display: flex;
+  height: 100vh;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -31,6 +47,17 @@
   height: 85vh;
 }
 
+.left-side {
+  width: 300px;
+  height: 100%;
+}
+
+.right-side {
+  width: 100%;
+  background-color: aqua;
+  height: 100%;
+}
+
 .container_info .textarea_source {
   height: 200px;
   width: 500px;
@@ -48,9 +75,15 @@
   align-items: center;
 }
 
+.first_row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .container_button {
-  text-align: center;
-  margin-top: 10px;
+  /* text-align: center;
+  margin-top: 10px; */
 }
 
 .container_button button {
@@ -58,6 +91,11 @@
   padding: 10px;
   cursor: pointer;
   outline: none;
+}
+
+.second-row {
+  width: 100%;
+  justify-content: space-between;
 }
 
 @keyframes App-logo-spin {
