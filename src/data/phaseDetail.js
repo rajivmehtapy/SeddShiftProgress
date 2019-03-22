@@ -5,6 +5,12 @@ export default class DataSource {
   ]
 `;
 
+  static ShiftWorkUnitsBlanks = `  [
+    { "diameter": 30, "distance": 0 },
+    { "diameter": 24, "distance": 0 }
+  ]
+`;
+
   static DECIMAL_POINTS = 4;
 
   static ShiftInfo = `

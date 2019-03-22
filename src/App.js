@@ -208,7 +208,18 @@ class App extends Component {
     const updatedState = { ...this.state };
     delete updatedState.snapShots;
     this.state.snapShots.push({ id: this.create_UUID(), info: updatedState });
-    this.setState({ ...this.state });
+    this.setState({ ...this.state }, () => {
+      this.setState(
+        {
+          ...this.state,
+          actualjson: this.state.finaljson,
+          sourcejson: DataSource.ShiftWorkUnitsBlanks
+        },
+        () => {
+          this.calculateFinalProgress(1);
+        }
+      );
+    });
   };
 
   getSnapShot = obj => {
@@ -234,7 +245,7 @@ class App extends Component {
         <div className="main_container">
           <div className="App container_info left-side">
             <div>
-              SnapShots
+              RESULTS
               {this.state.snapShots.map(snap => (
                 <div
                   style={{ color: "blue", cursor: "pointer" }}
@@ -247,6 +258,10 @@ class App extends Component {
             </div>
           </div>
           <div className="App container_info right-side">
+            <div className="header-title">
+              Open Phase Segment & Volume Calculator
+            </div>
+
             <div className="container_json first_row">
               <div>
                 <span>Drill Plan : </span>
@@ -258,7 +273,7 @@ class App extends Component {
                   value={this.state.drillPlan}
                 />
               </div>
-              <div>
+              <div style={{ marginLeft: "-145px" }}>
                 Total Volume :
                 {this.state.TotalVolumes.toFixed(DataSource.DECIMAL_POINTS)}
               </div>
@@ -286,7 +301,7 @@ class App extends Component {
                   value={this.state.PilotPlan}
                 />
               </div>
-              <span>
+              <span style={{ marginLeft: "-210px" }}>
                 Pilot Volume :
                 {this.state.PilotVolume.toFixed(DataSource.DECIMAL_POINTS)}
               </span>
@@ -325,6 +340,7 @@ class App extends Component {
               <div style={{ display: "flex", alignItems: "center" }}>
                 <span>Shift WorkUnits:</span>
                 <textarea
+                  style={{ marginLeft: "55px" }}
                   onKeyPress={ev => this.onSourceChange(ev)}
                   onChange={ev => this.onSourceChangeUser(ev)}
                   value={this.state.sourcejson}
@@ -337,6 +353,7 @@ class App extends Component {
                 <span>Ending ProgressArray :</span>
                 <textarea
                   readOnly
+                  style={{ marginLeft: "10px" }}
                   value={this.state.finaljson}
                   className="textarea_target"
                 />
@@ -355,7 +372,7 @@ class App extends Component {
             >
               <div className="container_button">
                 <button onClick={() => this.onSaveSnapShot()}>
-                  Save SnapShot
+                  SAVE RESULTS
                 </button>
               </div>
               <div style={{ textAlign: "left", padding: "15px" }}>
