@@ -239,12 +239,15 @@ class App extends Component {
     });
     return uuid;
   };
+
+  onUndo = () => {};
+
   render() {
     return (
       <React.Fragment>
         <div className="main_container">
           <div className="App container_info left-side">
-            <div>
+            <div style={{ display: "none" }}>
               RESULTS
               {this.state.snapShots.map(snap => (
                 <div
@@ -255,6 +258,12 @@ class App extends Component {
                   {snap.id}
                 </div>
               ))}
+            </div>
+            <div className="nav-button">
+              <button>UNDO</button>
+              <button>CLEAR SEGMENTS</button>
+              <button>CLEAR PLANS</button>
+              <button>SUMMARy</button>
             </div>
           </div>
           <div className="App container_info right-side">
@@ -386,7 +395,7 @@ class App extends Component {
                 </div>
                 <div className="container_center">
                   <span>
-                    Open Phase Point:{" "}
+                    Open Phase Points:{" "}
                     {this.state.OpenPhasePoint.toFixed(
                       DataSource.DECIMAL_POINTS
                     )}
