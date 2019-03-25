@@ -242,7 +242,15 @@ class App extends Component {
   };
 
   onUndo = () => {
-    alert("Hello SIR ")
+    const updatedstate = { ...this.state };
+    updatedstate.snapShots.pop();
+    this.setState(updatedstate, () => {
+      if (this.state.snapShots.length - 1 != -1) {
+        this.getSnapShot(this.state.snapShots[this.state.snapShots.length - 1]);
+      } else {
+        alert("All Snapshots are empty");
+      }
+    });
   };
   onClearPlan = () => {
     this.setState({
@@ -263,7 +271,7 @@ class App extends Component {
       snapShots: [],
       TotalVolumes: 0,
       PilotVolume: 0,
-      OpenPhaseVolume:0,
+      OpenPhaseVolume: 0,
       actualvolume: 0,
       finalvolume: 0,
       shiftVolumeDisplay: 0,
@@ -278,7 +286,7 @@ class App extends Component {
       <React.Fragment>
         <div className="main_container">
           <div className="App container_info left-side">
-            <div style={{display:"none"}}>
+            <div>
               RESULTS
               {this.state.snapShots.map(snap => (
                 <div
@@ -291,10 +299,12 @@ class App extends Component {
               ))}
             </div>
             <div className="nav-button">
-              <button onClick={() => this.onUndo()}>UNDO</button><br/>
+              <button onClick={() => this.onUndo()}>UNDO</button>
+              <br />
               <button onClick={() => this.onClearSegments()}>
                 CLEAR SEGMENTS
-              </button><br/>
+              </button>
+              <br />
               <button>SUMMARY</button>
             </div>
           </div>
@@ -305,7 +315,6 @@ class App extends Component {
                 <button onClick={() => this.onClearPlan()}>CLEAR ALL</button>
               </div>
             </div>
-
 
             <div className="container_json first_row">
               <div>
