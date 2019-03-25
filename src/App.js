@@ -31,6 +31,7 @@ class App extends Component {
     shiftVolumeDisplay: 0,
     snapShots: []
   };
+
   seddCalculationRef = new seddCalculation();
   workUnitList = [];
   finalprogressList = [];
@@ -241,6 +242,25 @@ class App extends Component {
   };
 
   onUndo = () => {};
+  onClearPlan = () => {
+    this.setState({
+      ...this.state,
+      DrillWeight: 0,
+      openPhaseWeight: 0,
+      drillPlan: `{ diameter: 0, distance: 0 }`,
+      PilotPlan: `{ diameter: 0, distance: 0 }`
+    });
+  };
+
+  onClearSegments = () => {
+    this.setState({
+      ...this.state,
+      sourcejson: DataSource.ShiftWorkUnitsForClear,
+      actualjson: DataSource.ActualArrayForClear,
+      finaljson: "",
+      snapShots: []
+    });
+  };
 
   render() {
     return (
@@ -261,8 +281,10 @@ class App extends Component {
             </div>
             <div className="nav-button">
               <button>UNDO</button>
-              <button>CLEAR SEGMENTS</button>
-              <button>CLEAR PLANS</button>
+              <button onClick={() => this.onClearSegments()}>
+                CLEAR SEGMENTS
+              </button>
+              <button onClick={() => this.onClearPlan()}>CLEAR PLANS</button>
               <button>SUMMARy</button>
             </div>
           </div>

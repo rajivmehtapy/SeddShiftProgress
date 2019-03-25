@@ -11,6 +11,23 @@ export default class DataSource {
   ]
 `;
 
+  static ShiftWorkUnitsForClear = `  [
+    { "diameter": 0, "distance": 0 },
+    { "diameter": 0, "distance": 0 },
+    { "diameter": 0, "distance": 0 },
+    { "diameter": 0, "distance": 0 },
+    { "diameter": 0, "distance": 0 },
+    { "diameter": 0, "distance": 0 }
+  ]
+`;
+
+  static ActualArrayForClear = `[
+  { "diameter": 36, "distance": 0 },
+  { "diameter": 30, "distance": 0 },
+  { "diameter": 24, "distance": 0 },
+  { "diameter": 11, "distance": 0 }
+]`;
+
   static DECIMAL_POINTS = 4;
 
   static ShiftInfo = `
