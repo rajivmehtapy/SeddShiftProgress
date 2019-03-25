@@ -241,7 +241,9 @@ class App extends Component {
     return uuid;
   };
 
-  onUndo = () => {};
+  onUndo = () => {
+    alert("Hello SIR ")
+  };
   onClearPlan = () => {
     this.setState({
       ...this.state,
@@ -289,7 +291,7 @@ class App extends Component {
               ))}
             </div>
             <div className="nav-button">
-              <button>UNDO</button><br/>
+              <button onClick={() => this.onUndo()}>UNDO</button><br/>
               <button onClick={() => this.onClearSegments()}>
                 CLEAR SEGMENTS
               </button><br/>
@@ -300,7 +302,7 @@ class App extends Component {
             <div className="header-title">
               Open Phase Segment & Volume Calculator
               <div>
-                <button onClick={() => this.onClearPlan()}>CLEAR PLANS</button>
+                <button onClick={() => this.onClearPlan()}>CLEAR ALL</button>
               </div>
             </div>
 
