@@ -258,7 +258,16 @@ class App extends Component {
       sourcejson: DataSource.ShiftWorkUnitsForClear,
       actualjson: DataSource.ActualArrayForClear,
       finaljson: "",
-      snapShots: []
+      snapShots: [],
+      TotalVolumes: 0,
+      PilotVolume: 0,
+      OpenPhaseVolume:0,
+      actualvolume: 0,
+      finalvolume: 0,
+      shiftVolumeDisplay: 0,
+      OpenPhasePoint: 0,
+      DrillPoints: 0,
+      ContractPoints: 0
     });
   };
 
@@ -267,7 +276,7 @@ class App extends Component {
       <React.Fragment>
         <div className="main_container">
           <div className="App container_info left-side">
-            <div style={{ display: "none" }}>
+            <div style={{display:"none"}}>
               RESULTS
               {this.state.snapShots.map(snap => (
                 <div
@@ -280,18 +289,21 @@ class App extends Component {
               ))}
             </div>
             <div className="nav-button">
-              <button>UNDO</button>
+              <button>UNDO</button><br/>
               <button onClick={() => this.onClearSegments()}>
                 CLEAR SEGMENTS
-              </button>
-              <button onClick={() => this.onClearPlan()}>CLEAR PLANS</button>
-              <button>SUMMARy</button>
+              </button><br/>
+              <button>SUMMARY</button>
             </div>
           </div>
           <div className="App container_info right-side">
             <div className="header-title">
               Open Phase Segment & Volume Calculator
+              <div>
+                <button onClick={() => this.onClearPlan()}>CLEAR PLANS</button>
+              </div>
             </div>
+
 
             <div className="container_json first_row">
               <div>
