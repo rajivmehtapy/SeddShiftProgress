@@ -61,21 +61,33 @@ class App extends Component {
   };
 
   onDrillPlanKeyPress = e => {
-    if (e.key === "Enter") {
-      this.setState(
-        {
-          ...this.state,
-          drillPlan: e.currentTarget.value
-        },
-        () => {
-          this.calculateFinalProgress(2, this.state.actualjson);
-        }
-      );
+    try {
+      JSON.stringify(e.currentTarget.value)
+      if (e.key === "Enter") {
+        this.setState(
+          {
+            ...this.state,
+            drillPlan: e.currentTarget.value
+          },
+          () => {
+            this.calculateFinalProgress(2, this.state.actualjson);
+          }
+        );
+      }
+    }
+    catch (error) {
+      alert("error")
     }
   };
 
   onDrillPlan = e => {
-    this.setState({ ...this.state, drillPlan: e.currentTarget.value });
+    try {
+      JSON.parse(e.currentTarget.value)
+      this.setState({ ...this.state, drillPlan: e.currentTarget.value });
+    }
+    catch (error) {
+
+    }
   };
 
   onOpenPhaseWeight = e => {
@@ -87,10 +99,30 @@ class App extends Component {
     );
   };
 
+  onPilotPlanKeyPress = e => {
+    try {
+      JSON.stringify(e.currentTarget.value)
+      if (e.key === "Enter") {
+        this.setState({ ...this.state, PilotPlan: e.currentTarget.value },
+          () => {
+            this.calculateFinalProgress(2, this.state.actualjson);
+          }
+        );
+      }
+    }
+    catch (error) {
+      alert("error");
+    }
+  };
+
   onPilotPlan = e => {
-    this.setState({ ...this.state, PilotPlan: e.currentTarget.value }, () => {
-      this.calculateFinalProgress(2, this.state.actualjson);
-    });
+    try {
+      JSON.parse(e.currentTarget.value)
+      this.setState({ ...this.state, PilotPlan: e.currentTarget.value });
+    }
+    catch (error) {
+
+    }
   };
 
   onDrillWeight = e => {
@@ -245,7 +277,7 @@ class App extends Component {
 
   create_UUID = () => {
     var dt = new Date().getTime();
-    var uuid = "xxxx".replace(/[xy]/g, function(c) {
+    var uuid = "xxxx".replace(/[xy]/g, function (c) {
       var r = (dt + Math.random() * 16) % 16 | 0;
       dt = Math.floor(dt / 16);
       return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
@@ -362,6 +394,7 @@ class App extends Component {
                 <span>Pilot Plan : </span>
                 <input
                   type="text"
+                  onKeyPress={e => this.onPilotPlanKeyPress(e)}
                   onChange={e => {
                     this.onPilotPlan(e);
                   }}
