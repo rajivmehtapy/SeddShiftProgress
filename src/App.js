@@ -423,6 +423,15 @@ class App extends Component {
     });
   };
 
+  convertToTitle = () => {
+    const title = `${JSON.parse(this.state.drillPlan).diameter} x ${
+      JSON.parse(this.state.drillPlan).distance
+    } with Pilot ${JSON.parse(this.state.PilotPlan).diameter} x ${
+      JSON.parse(this.state.PilotPlan).distance
+    }`;
+    return title;
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -449,7 +458,7 @@ class App extends Component {
               </button>
               <Modal
                 width="100"
-                title="SUMMARY"
+                title={this.convertToTitle()}
                 visible={this.state.visible}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}

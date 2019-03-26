@@ -118,7 +118,6 @@ input[type="text"] {
 
 .dlg-table {
   display: flex;
-  background: red;
 }
 
 @keyframes App-logo-spin {
