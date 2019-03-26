@@ -71,6 +71,7 @@ input[type="text"] {
   height: 100px;
   width: 500px;
   resize: none;
+  margin-left: 5px;
 }
 
 .container_info .container_json {

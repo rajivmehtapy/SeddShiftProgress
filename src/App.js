@@ -357,13 +357,13 @@ class App extends Component {
           <div className="App container_info left-side">
             <div>RESULTS -- {version}</div>
             <div className="nav-button">
-              <button onClick={() => this.onUndo()}>UNDO</button>
+              <button style={{fontSize: "11px"}} onClick={() => this.onUndo()}>UNDO</button>
               <br />
-              <button onClick={() => this.onClearSegments()}>
+              <button style={{fontSize: "11px"}} onClick={() => this.onClearSegments()}>
                 CLEAR SEGMENTS
               </button>
               <br />
-              <button onClick={this.showModal}>SUMMARY</button>
+              <button style={{fontSize: "11px"}} onClick={this.showModal}>SUMMARY</button>
               <Modal
                 title="SUMMARY"
                 visible={this.state.visible}
@@ -388,7 +388,7 @@ class App extends Component {
             <div className="header-title">
               Open Phase Segment & Volume Calculator
               <div>
-                <button onClick={() => this.onClearPlan()}>CLEAR ALL</button>
+                <button style={{fontSize: "11px"}} onClick={() => this.onClearPlan()}>CLEAR ALL</button>
               </div>
             </div>
 
@@ -485,7 +485,7 @@ class App extends Component {
                 <span>Ending ProgressArray :</span>
                 <textarea
                   readOnly
-                  style={{ marginLeft: "10px" }}
+                  style={{ marginLeft: "12px" }}
                   value={this.state.finaljson}
                   className="textarea_target"
                 />
@@ -503,7 +503,7 @@ class App extends Component {
               }}
             >
               <div className="container_button">
-                <button onClick={() => this.onSaveSnapShot()}>
+                <button style={{fontSize: "11px"}} onClick={() => this.onSaveSnapShot()}>
                   SAVE RESULTS
                 </button>
               </div>
