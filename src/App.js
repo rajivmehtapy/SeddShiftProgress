@@ -60,10 +60,22 @@ class App extends Component {
     this.setState({ ...this.state, actualjson: e.currentTarget.value });
   };
 
+  onDrillPlanKeyPress = e => {
+    if (e.key === "Enter") {
+      this.setState(
+        {
+          ...this.state,
+          drillPlan: e.currentTarget.value
+        },
+        () => {
+          this.calculateFinalProgress(2, this.state.actualjson);
+        }
+      );
+    }
+  };
+
   onDrillPlan = e => {
-    this.setState({ ...this.state, drillPlan: e.currentTarget.value }, () => {
-      this.calculateFinalProgress(2, this.state.actualjson);
-    });
+    this.setState({ ...this.state, drillPlan: e.currentTarget.value });
   };
 
   onOpenPhaseWeight = e => {
@@ -321,6 +333,7 @@ class App extends Component {
                 <span>Drill Plan : </span>
                 <input
                   type="text"
+                  onKeyPress={e => this.onDrillPlanKeyPress(e)}
                   onChange={e => {
                     this.onDrillPlan(e);
                   }}
