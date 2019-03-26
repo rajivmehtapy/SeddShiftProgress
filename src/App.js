@@ -461,10 +461,19 @@ class App extends Component {
                   columns={this.columns}
                   dataSource={this.gdata}
                 />
-                <div><div>{this.volume}</div>
-                      <div>{this.phasepoints}</div>
-                      <div>{this.drillpoints}</div>
-                      <div>{this.ContractPoints}</div>
+                <div className="dlg-table">
+                  <div style={{ marginLeft: "90px" }}>
+                    {this.volume.toFixed(DataSource.DECIMAL_POINTS)}
+                  </div>
+                  <div style={{ marginLeft: "186px" }}>
+                    {this.phasepoints.toFixed(DataSource.DECIMAL_POINTS)}
+                  </div>
+                  <div style={{ marginLeft: "205px" }}>
+                    {this.drillpoints.toFixed(DataSource.DECIMAL_POINTS)}
+                  </div>
+                  <div style={{ marginLeft: "210px" }}>
+                    {this.ContractPoints.toFixed(DataSource.DECIMAL_POINTS)}
+                  </div>
                 </div>
               </Modal>
             </div>

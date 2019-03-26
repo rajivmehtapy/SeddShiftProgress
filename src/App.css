@@ -116,6 +116,11 @@ input[type="text"] {
   padding: 10px;
 }
 
+.dlg-table {
+  display: flex;
+  background: red;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
