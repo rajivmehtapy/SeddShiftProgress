@@ -328,6 +328,9 @@ class App extends Component {
     this.ContractPoints = 0;
     this.gdata.map(item => {
       this.volume += item.shiftvolume;
+      this.phasepoints += item.OpenPhasePoint;
+      this.drillpoints += item.DrillPoints;
+      this.ContractPoints += item.ContractPoints;
     });
   };
   onSaveSnapShot = () => {
@@ -458,7 +461,11 @@ class App extends Component {
                   columns={this.columns}
                   dataSource={this.gdata}
                 />
-                <div>{this.volume}</div>
+                <div><div>{this.volume}</div>
+                      <div>{this.phasepoints}</div>
+                      <div>{this.drillpoints}</div>
+                      <div>{this.ContractPoints}</div>
+                </div>
               </Modal>
             </div>
           </div>
