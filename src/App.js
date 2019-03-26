@@ -91,12 +91,18 @@ class App extends Component {
   };
 
   onOpenPhaseWeight = e => {
-    this.setState(
-      { ...this.state, openPhaseWeight: e.currentTarget.value },
-      () => {
-        this.calculateFinalProgress(2, this.state.actualjson);
-      }
-    );
+    try{
+      JSON.parse(e.currentTarget.value)
+      this.setState(
+        { ...this.state, openPhaseWeight: e.currentTarget.value },
+        () => {
+          this.calculateFinalProgress(2, this.state.actualjson);
+        }
+      );
+    }
+    catch(error){
+
+    }
   };
 
   onPilotPlanKeyPress = e => {
@@ -126,9 +132,16 @@ class App extends Component {
   };
 
   onDrillWeight = e => {
-    this.setState({ ...this.state, DrillWeight: e.currentTarget.value }, () => {
-      this.calculateFinalProgress(2, this.state.actualjson);
-    });
+    try{
+      JSON.parse(e.currentTarget.value)
+      this.setState({ ...this.state, DrillWeight: e.currentTarget.value }, () => {
+        this.calculateFinalProgress(2, this.state.actualjson);
+      });
+    }
+    catch(error){
+
+    }
+    
   };
 
   componentDidMount() {
