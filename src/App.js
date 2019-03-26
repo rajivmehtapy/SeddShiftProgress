@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { version } from "antd";
+import { version, Modal } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
 import seddCalculation from "./utility/seddCalculation";
@@ -31,12 +31,33 @@ class App extends Component {
     PilotVolume: 0,
     OpenPhaseVolume: 0,
     shiftVolumeDisplay: 0,
+    visible: false,
     snapShots: []
   };
 
   seddCalculationRef = new seddCalculation();
   workUnitList = [];
   finalprogressList = [];
+
+  showModal = () => {
+    this.setState({
+      visible: true
+    });
+  };
+
+  handleOk = e => {
+    console.log(e);
+    this.setState({
+      visible: false
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false
+    });
+  };
 
   onSourceChange = ev => {
     if (ev.key === "Enter") {
@@ -334,18 +355,7 @@ class App extends Component {
       <React.Fragment>
         <div className="main_container">
           <div className="App container_info left-side">
-            <div>
-              RESULTS -- {version}
-              {this.state.snapShots.map(snap => (
-                <div
-                  style={{ color: "blue", cursor: "pointer" }}
-                  key={snap.id}
-                  onClick={() => this.getSnapShot(snap)}
-                >
-                  {snap.id}
-                </div>
-              ))}
-            </div>
+            <div>RESULTS -- {version}</div>
             <div className="nav-button">
               <button onClick={() => this.onUndo()}>UNDO</button>
               <br />
@@ -353,7 +363,25 @@ class App extends Component {
                 CLEAR SEGMENTS
               </button>
               <br />
-              <button>SUMMARY</button>
+              <button onClick={this.showModal}>SUMMARY</button>
+              <Modal
+                title="SUMMARY"
+                visible={this.state.visible}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+                okButtonProps={{ disabled: false }}
+                cancelButtonProps={{ disabled: false }}
+              >
+                {this.state.snapShots.map(snap => (
+                  <div
+                    style={{ color: "blue", cursor: "pointer" }}
+                    key={snap.id}
+                    onClick={() => this.getSnapShot(snap)}
+                  >
+                    {snap.id}
+                  </div>
+                ))}
+              </Modal>
             </div>
           </div>
           <div className="App container_info right-side">
