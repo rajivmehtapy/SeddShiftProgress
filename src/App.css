@@ -62,7 +62,7 @@ input[type="text"] {
 }
 
 .container_info .textarea_source {
-  height: 200px;
+  height: 120px;
   width: 500px;
   resize: both;
 }

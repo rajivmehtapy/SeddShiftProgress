@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { version, Modal } from "antd";
+import { version, Modal, Table } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
 import seddCalculation from "./utility/seddCalculation";
@@ -32,8 +32,44 @@ class App extends Component {
     OpenPhaseVolume: 0,
     shiftVolumeDisplay: 0,
     visible: false,
+    phasePointsCumulative: 0,
     snapShots: []
   };
+
+  columns = [
+    {
+      title: "Id",
+      dataIndex: "Id",
+      key: "Id"
+    },
+    {
+      title: "volume",
+      dataIndex: "shiftvolume",
+      key: "shiftvolume"
+    },
+    {
+      title: "PhasePoints",
+      dataIndex: "OpenPhasePoint",
+      key: "OpenPhasePoint"
+    },
+    {
+      title: "DrillPoints",
+      dataIndex: "DrillPoints",
+      key: "DrillPoints"
+    },
+    {
+      title: "ContractPoints",
+      dataIndex: "ContractPoints",
+      key: "ContractPoints"
+    },
+    {
+      title: "phaseCompletion",
+      dataIndex: "phasePointsCumulative",
+      key: "phasePointsCumulative"
+    }
+  ];
+
+  gdata = [];
 
   seddCalculationRef = new seddCalculation();
   workUnitList = [];
@@ -214,6 +250,8 @@ class App extends Component {
           OpenPhasePoint: OpenPhasePoint,
           DrillPoints: DrillPoints,
           ContractPoints: ContractPoints,
+          phasePointsCumulative:
+            startingarray(this.finalprogressList) / (TotalVolume - PilotVolume),
           shiftVolumeDisplay:
             startingarray(this.finalprogressList) -
             startingarray(JSON.parse(this.state.actualjson))
@@ -241,6 +279,8 @@ class App extends Component {
           OpenPhasePoint: OpenPhasePoint2,
           DrillPoints: DrillPoints2,
           ContractPoints: ContractPoints2,
+          phasePointsCumulative:
+            startingarray(this.finalprogressList) / (TotalVolume - PilotVolume),
           shiftVolumeDisplay: shiftvolume2
         });
         break;
@@ -266,6 +306,8 @@ class App extends Component {
           OpenPhasePoint: OpenPhasePoint3,
           DrillPoints: DrillPoints3,
           ContractPoints: ContractPoints3,
+          phasePointsCumulative:
+            startingarray(this.finalprogressList) / (TotalVolume - PilotVolume),
           shiftVolumeDisplay: shiftvolume3
         });
         break;
@@ -274,10 +316,35 @@ class App extends Component {
     }
   };
 
+  volume = 0;
+  phasepoints = 0;
+  drillpoints = 0;
+  ContractPoints = 0;
+
+  calculateSummary = () => {
+    this.volume = 0;
+    this.phasepoints = 0;
+    this.drillpoints = 0;
+    this.ContractPoints = 0;
+    this.gdata.map(item => {
+      this.volume += item.shiftvolume;
+    });
+  };
   onSaveSnapShot = () => {
     const updatedState = { ...this.state };
     delete updatedState.snapShots;
-    this.state.snapShots.push({ id: this.create_UUID(), info: updatedState });
+    const resultObj = { id: this.create_UUID(), info: updatedState };
+    this.state.snapShots.push(resultObj);
+    this.gdata.push({
+      key: resultObj.id,
+      Id: resultObj.id,
+      shiftvolume: resultObj.info.shiftvolume,
+      OpenPhasePoint: resultObj.info.OpenPhasePoint,
+      DrillPoints: resultObj.info.DrillPoints,
+      ContractPoints: resultObj.info.ContractPoints,
+      phasePointsCumulative: resultObj.info.phasePointsCumulative
+    });
+    this.calculateSummary();
     this.setState({ ...this.state }, () => {
       this.setState(
         {
@@ -313,9 +380,11 @@ class App extends Component {
   onUndo = () => {
     const updatedstate = { ...this.state };
     updatedstate.snapShots.pop();
+    this.gdata.pop();
     this.setState(updatedstate, () => {
       if (this.state.snapShots.length - 1 != -1) {
         this.getSnapShot(this.state.snapShots[this.state.snapShots.length - 1]);
+        this.calculateSummary();
       } else {
         alert("All Snapshots are empty");
       }
@@ -346,6 +415,7 @@ class App extends Component {
       shiftVolumeDisplay: 0,
       OpenPhasePoint: 0,
       DrillPoints: 0,
+      phasePointsCumulative: 0,
       ContractPoints: 0
     });
   };
@@ -355,16 +425,27 @@ class App extends Component {
       <React.Fragment>
         <div className="main_container">
           <div className="App container_info left-side">
-            <div>RESULTS -- {version}</div>
+            {/* <div>RESULTS -- {version}</div> */}
             <div className="nav-button">
-              <button style={{fontSize: "11px"}} onClick={() => this.onUndo()}>UNDO</button>
+              <button
+                style={{ fontSize: "11px" }}
+                onClick={() => this.onUndo()}
+              >
+                UNDO
+              </button>
               <br />
-              <button style={{fontSize: "11px"}} onClick={() => this.onClearSegments()}>
+              <button
+                style={{ fontSize: "11px" }}
+                onClick={() => this.onClearSegments()}
+              >
                 CLEAR SEGMENTS
               </button>
               <br />
-              <button style={{fontSize: "11px"}} onClick={this.showModal}>SUMMARY</button>
+              <button style={{ fontSize: "11px" }} onClick={this.showModal}>
+                SUMMARY
+              </button>
               <Modal
+                width="100"
                 title="SUMMARY"
                 visible={this.state.visible}
                 onOk={this.handleOk}
@@ -372,15 +453,12 @@ class App extends Component {
                 okButtonProps={{ disabled: false }}
                 cancelButtonProps={{ disabled: false }}
               >
-                {this.state.snapShots.map(snap => (
-                  <div
-                    style={{ color: "blue", cursor: "pointer" }}
-                    key={snap.id}
-                    onClick={() => this.getSnapShot(snap)}
-                  >
-                    {snap.id}
-                  </div>
-                ))}
+                <Table
+                  pagination={false}
+                  columns={this.columns}
+                  dataSource={this.gdata}
+                />
+                <div>{this.volume}</div>
               </Modal>
             </div>
           </div>
@@ -388,7 +466,12 @@ class App extends Component {
             <div className="header-title">
               Open Phase Segment & Volume Calculator
               <div>
-                <button style={{fontSize: "11px"}} onClick={() => this.onClearPlan()}>CLEAR ALL</button>
+                <button
+                  style={{ fontSize: "11px" }}
+                  onClick={() => this.onClearPlan()}
+                >
+                  CLEAR ALL
+                </button>
               </div>
             </div>
 
@@ -503,7 +586,10 @@ class App extends Component {
               }}
             >
               <div className="container_button">
-                <button style={{fontSize: "11px"}} onClick={() => this.onSaveSnapShot()}>
+                <button
+                  style={{ fontSize: "11px" }}
+                  onClick={() => this.onSaveSnapShot()}
+                >
                   SAVE RESULTS
                 </button>
               </div>
@@ -524,6 +610,15 @@ class App extends Component {
                     )}
                   </span>
                 </div>
+                <div className="container_center">
+                  <span>
+                    Phase Completion:{" "}
+                    {this.state.phasePointsCumulative.toFixed(
+                      DataSource.DECIMAL_POINTS
+                    )}
+                  </span>
+                </div>
+
                 <div className="container_center">
                   <span>
                     Drill Points:{" "}
