@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { version } from "antd";
+import "antd/dist/antd.css";
 import "./App.css";
 import seddCalculation from "./utility/seddCalculation";
 import DataSource from "./data/phaseDetail";
@@ -62,7 +64,7 @@ class App extends Component {
 
   onDrillPlanKeyPress = e => {
     try {
-      JSON.stringify(e.currentTarget.value)
+      JSON.stringify(e.currentTarget.value);
       if (e.key === "Enter") {
         this.setState(
           {
@@ -74,74 +76,63 @@ class App extends Component {
           }
         );
       }
-    }
-    catch (error) {
-      alert("error")
+    } catch (error) {
+      alert("error");
     }
   };
 
   onDrillPlan = e => {
     try {
-      JSON.parse(e.currentTarget.value)
+      JSON.parse(e.currentTarget.value);
       this.setState({ ...this.state, drillPlan: e.currentTarget.value });
-    }
-    catch (error) {
-
-    }
+    } catch (error) {}
   };
 
   onOpenPhaseWeight = e => {
-    try{
-      JSON.parse(e.currentTarget.value)
+    try {
+      JSON.parse(e.currentTarget.value);
       this.setState(
         { ...this.state, openPhaseWeight: e.currentTarget.value },
         () => {
           this.calculateFinalProgress(2, this.state.actualjson);
         }
       );
-    }
-    catch(error){
-
-    }
+    } catch (error) {}
   };
 
   onPilotPlanKeyPress = e => {
     try {
-      JSON.stringify(e.currentTarget.value)
+      JSON.stringify(e.currentTarget.value);
       if (e.key === "Enter") {
-        this.setState({ ...this.state, PilotPlan: e.currentTarget.value },
+        this.setState(
+          { ...this.state, PilotPlan: e.currentTarget.value },
           () => {
             this.calculateFinalProgress(2, this.state.actualjson);
           }
         );
       }
-    }
-    catch (error) {
+    } catch (error) {
       alert("error");
     }
   };
 
   onPilotPlan = e => {
     try {
-      JSON.parse(e.currentTarget.value)
+      JSON.parse(e.currentTarget.value);
       this.setState({ ...this.state, PilotPlan: e.currentTarget.value });
-    }
-    catch (error) {
-
-    }
+    } catch (error) {}
   };
 
   onDrillWeight = e => {
-    try{
-      JSON.parse(e.currentTarget.value)
-      this.setState({ ...this.state, DrillWeight: e.currentTarget.value }, () => {
-        this.calculateFinalProgress(2, this.state.actualjson);
-      });
-    }
-    catch(error){
-
-    }
-    
+    try {
+      JSON.parse(e.currentTarget.value);
+      this.setState(
+        { ...this.state, DrillWeight: e.currentTarget.value },
+        () => {
+          this.calculateFinalProgress(2, this.state.actualjson);
+        }
+      );
+    } catch (error) {}
   };
 
   componentDidMount() {
@@ -290,7 +281,7 @@ class App extends Component {
 
   create_UUID = () => {
     var dt = new Date().getTime();
-    var uuid = "xxxx".replace(/[xy]/g, function (c) {
+    var uuid = "xxxx".replace(/[xy]/g, function(c) {
       var r = (dt + Math.random() * 16) % 16 | 0;
       dt = Math.floor(dt / 16);
       return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
@@ -344,7 +335,7 @@ class App extends Component {
         <div className="main_container">
           <div className="App container_info left-side">
             <div>
-              RESULTS
+              RESULTS -- {version}
               {this.state.snapShots.map(snap => (
                 <div
                   style={{ color: "blue", cursor: "pointer" }}
