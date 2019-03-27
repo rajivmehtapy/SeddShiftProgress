@@ -406,15 +406,19 @@ class App extends Component {
   };
 
   onClearPlan = () => {
-    this.setState({
-      ...this.state,
-      DrillWeight: 0,
-      openPhaseWeight: 0,
-      snapShots: [],
-      drillPlan: `{ diameter: 0, distance: 0 }`,
-      PilotPlan: `{ diameter: 0, distance: 0 }`
-    });
-    this.ResetSummary();
+    this.setState(
+      {
+        ...this.state,
+        DrillWeight: 0,
+        openPhaseWeight: 0,
+        snapShots: [],
+        drillPlan: `{ diameter: 0, distance: 0 }`,
+        PilotPlan: `{ diameter: 0, distance: 0 }`
+      },
+      () => {
+        this.onClearSegments();
+      }
+    );
   };
 
   onClearSegments = () => {
