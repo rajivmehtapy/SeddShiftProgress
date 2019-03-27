@@ -13,7 +13,7 @@ const finalarray = progress => toVolume(fromProgressArray(progress));
 
 class App extends Component {
   state = {
-    sourcejson: DataSource.ShiftWorkUnits,
+    sourcejson: DataSource.ShiftWorkUnitsForClear,
     targetjson: DataSource.TargetInfo,
     actualjson: DataSource.ActualArray,
     finaljson: "",
