@@ -45,27 +45,35 @@ class App extends Component {
     {
       title: "volume",
       dataIndex: "shiftvolume",
-      key: "shiftvolume"
+      key: "shiftvolume",
+      render: shiftvolume => shiftvolume.toFixed(DataSource.DECIMAL_POINTS)
     },
     {
       title: "PhasePoints",
       dataIndex: "OpenPhasePoint",
-      key: "OpenPhasePoint"
+      key: "OpenPhasePoint",
+      render: OpenPhasePoint =>
+        OpenPhasePoint.toFixed(DataSource.DECIMAL_POINTS)
     },
     {
       title: "DrillPoints",
       dataIndex: "DrillPoints",
-      key: "DrillPoints"
+      key: "DrillPoints",
+      render: DrillPoints => DrillPoints.toFixed(DataSource.DECIMAL_POINTS)
     },
     {
       title: "ContractPoints",
       dataIndex: "ContractPoints",
-      key: "ContractPoints"
+      key: "ContractPoints",
+      render: ContractPoints =>
+        ContractPoints.toFixed(DataSource.DECIMAL_POINTS)
     },
     {
       title: "phaseCompletion",
       dataIndex: "phasePointsCumulative",
-      key: "phasePointsCumulative"
+      key: "phasePointsCumulative",
+      render: phasePointsCumulative =>
+        phasePointsCumulative.toFixed(DataSource.DECIMAL_POINTS)
     }
   ];
 
@@ -490,16 +498,16 @@ class App extends Component {
                   dataSource={this.gdata}
                 />
                 <div className="dlg-table">
-                  <div style={{ marginLeft: "90px" }}>
+                  <div style={{ marginLeft: "150px" }}>
                     {this.volume.toFixed(DataSource.DECIMAL_POINTS)}
                   </div>
-                  <div style={{ marginLeft: "186px" }}>
+                  <div style={{ marginLeft: "125px" }}>
                     {this.phasepoints.toFixed(DataSource.DECIMAL_POINTS)}
                   </div>
-                  <div style={{ marginLeft: "205px" }}>
+                  <div style={{ marginLeft: "195px" }}>
                     {this.drillpoints.toFixed(DataSource.DECIMAL_POINTS)}
                   </div>
-                  <div style={{ marginLeft: "210px" }}>
+                  <div style={{ marginLeft: "152px" }}>
                     {this.ContractPoints.toFixed(DataSource.DECIMAL_POINTS)}
                   </div>
                 </div>
