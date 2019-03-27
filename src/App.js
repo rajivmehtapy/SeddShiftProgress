@@ -70,10 +70,13 @@ class App extends Component {
   ];
 
   gdata = [];
-
   seddCalculationRef = new seddCalculation();
   workUnitList = [];
   finalprogressList = [];
+  volume = 0;
+  phasepoints = 0;
+  drillpoints = 0;
+  ContractPoints = 0;
 
   showModal = () => {
     this.setState({
@@ -393,14 +396,17 @@ class App extends Component {
       }
     });
   };
+
   onClearPlan = () => {
     this.setState({
       ...this.state,
       DrillWeight: 0,
       openPhaseWeight: 0,
+      snapShots: [],
       drillPlan: `{ diameter: 0, distance: 0 }`,
       PilotPlan: `{ diameter: 0, distance: 0 }`
     });
+    this.ResetSummary();
   };
 
   onClearSegments = () => {
@@ -421,15 +427,28 @@ class App extends Component {
       phasePointsCumulative: 0,
       ContractPoints: 0
     });
+    this.ResetSummary();
+  };
+
+  ResetSummary = () => {
+    this.gdata = [];
+    this.volume = 0;
+    this.phasepoints = 0;
+    this.drillpoints = 0;
+    this.ContractPoints = 0;
   };
 
   convertToTitle = () => {
-    const title = `${JSON.parse(this.state.drillPlan).diameter} x ${
-      JSON.parse(this.state.drillPlan).distance
-    } with Pilot ${JSON.parse(this.state.PilotPlan).diameter} x ${
-      JSON.parse(this.state.PilotPlan).distance
-    }`;
-    return title;
+    try {
+      const title = `${JSON.parse(this.state.drillPlan).diameter} x ${
+        JSON.parse(this.state.drillPlan).distance
+      } with Pilot ${JSON.parse(this.state.PilotPlan).diameter} x ${
+        JSON.parse(this.state.PilotPlan).distance
+      }`;
+      return title;
+    } catch (error) {
+      return "";
+    }
   };
 
   render() {
