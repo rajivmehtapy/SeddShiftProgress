@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+.progress-container {
+  width: 25%;
+  padding: 10px;
+}
+
+.progress-container-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #openphaseweight {
   width: 40px;
 }
@@ -118,6 +129,12 @@ input[type="text"] {
 
 .dlg-table {
   display: flex;
+}
+
+.steps-content {
+  height: 50vh;
+  border: 1px solid #666666;
+  margin: 5px;
 }
 
 @keyframes App-logo-spin {

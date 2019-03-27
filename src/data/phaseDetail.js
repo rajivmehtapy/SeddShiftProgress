@@ -86,10 +86,10 @@ export default class DataSource {
 }`;
 
   static ActualArray = `[
-  { "diameter": 36, "distance": 150 },
-  { "diameter": 30, "distance": 200 },
-  { "diameter": 24, "distance": 300 },
-  { "diameter": 11, "distance": 100 }
+  { "diameter": 0, "distance": 0 },
+  { "diameter": 0, "distance": 0 },
+  { "diameter": 0, "distance": 0 },
+  { "diameter": 0, "distance": 0 }
 ]`;
 
   static checkArray = [

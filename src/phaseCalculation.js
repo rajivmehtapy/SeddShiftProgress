@@ -20,10 +20,10 @@ class phaseCalculation extends Component {
     actualvolume: 0,
     finalvolume: 0,
     shiftvolume: 0,
-    drillPlan: `{"diameter":48,"distance":1500}`,
-    openPhaseWeight: 47,
-    PilotPlan: `{"diameter":11,"distance":1500}`,
-    DrillWeight: 25,
+    drillPlan: `{"diameter":0,"distance":0}`,
+    openPhaseWeight: 0,
+    PilotPlan: `{"diameter":0,"distance":0}`,
+    DrillWeight: 0,
     OpenPhasePoint: 0,
     DrillPoints: 0,
     ContractPoints: 0,
@@ -144,16 +144,16 @@ class phaseCalculation extends Component {
           }
         );
       }
-    } catch (error) {
-      alert("error");
-    }
+    } catch (error) {}
   };
 
   onDrillPlan = e => {
     try {
       JSON.parse(e.currentTarget.value);
       this.setState({ ...this.state, drillPlan: e.currentTarget.value });
-    } catch (error) {}
+    } catch (error) {
+      debugger;
+    }
   };
 
   onOpenPhaseWeight = e => {
@@ -172,8 +172,16 @@ class phaseCalculation extends Component {
     try {
       JSON.stringify(e.currentTarget.value);
       if (e.key === "Enter") {
+        debugger;
+        var actualjson = JSON.parse(this.state.actualjson);
+        actualjson[0] = JSON.parse(e.currentTarget.value);
+        //console.log(this.state.sourcejson);
         this.setState(
-          { ...this.state, PilotPlan: e.currentTarget.value },
+          {
+            ...this.state,
+            PilotPlan: e.currentTarget.value,
+            actualjson: JSON.stringify(actualjson)
+          },
           () => {
             this.calculateFinalProgress(2, this.state.actualjson);
           }
@@ -185,10 +193,11 @@ class phaseCalculation extends Component {
   };
 
   onPilotPlan = e => {
-    try {
-      JSON.parse(e.currentTarget.value);
-      this.setState({ ...this.state, PilotPlan: e.currentTarget.value });
-    } catch (error) {}
+    this.setState({ ...this.state, PilotPlan: e.currentTarget.value });
+    // try {
+    //   JSON.parse(e.currentTarget.value);
+    //   this.setState({ ...this.state, PilotPlan: e.currentTarget.value });
+    // } catch (error) {}
   };
 
   onDrillWeight = e => {
@@ -229,7 +238,6 @@ class phaseCalculation extends Component {
         startprogresslist = JSON.parse(this.state.actualjson);
         break;
     }
-
     this.finalprogressList = toArray(
       fromProgressArray(startprogresslist.concat(this.workUnitList))
     );
@@ -245,10 +253,17 @@ class phaseCalculation extends Component {
         const shiftvolume =
           startingarray(this.finalprogressList) -
           startingarray(JSON.parse(this.state.actualjson));
-        const OpenPhasePoint = shiftvolume / (TotalVolume - PilotVolume);
-        const DrillPoints = OpenPhasePoint * (this.state.openPhaseWeight / 100);
-        const ContractPoints = DrillPoints * (this.state.DrillWeight / 100);
-
+        let OpenPhasePoint = shiftvolume / (TotalVolume - PilotVolume);
+        let DrillPoints = OpenPhasePoint * (this.state.openPhaseWeight / 100);
+        let ContractPoints = DrillPoints * (this.state.DrillWeight / 100);
+        let phasePointsCumulative =
+          startingarray(this.finalprogressList) / (TotalVolume - PilotVolume);
+        OpenPhasePoint = isNaN(OpenPhasePoint) ? 0 : OpenPhasePoint;
+        DrillPoints = isNaN(DrillPoints) ? 0 : DrillPoints;
+        ContractPoints = isNaN(ContractPoints) ? 0 : ContractPoints;
+        phasePointsCumulative = isNaN(phasePointsCumulative)
+          ? 0
+          : phasePointsCumulative;
         this.setState({
           ...this.state,
           actualvolume: startingarray(JSON.parse(this.state.actualjson)),
@@ -261,8 +276,7 @@ class phaseCalculation extends Component {
           OpenPhasePoint: OpenPhasePoint,
           DrillPoints: DrillPoints,
           ContractPoints: ContractPoints,
-          phasePointsCumulative:
-            startingarray(this.finalprogressList) / (TotalVolume - PilotVolume),
+          phasePointsCumulative: phasePointsCumulative,
           shiftVolumeDisplay:
             startingarray(this.finalprogressList) -
             startingarray(JSON.parse(this.state.actualjson))
@@ -412,8 +426,8 @@ class phaseCalculation extends Component {
         DrillWeight: 0,
         openPhaseWeight: 0,
         snapShots: [],
-        drillPlan: `{ diameter: 0, distance: 0 }`,
-        PilotPlan: `{ diameter: 0, distance: 0 }`
+        drillPlan: `{ "diameter": 0, "distance": 0 }`,
+        PilotPlan: `{ "diameter": 0, "distance": 0 }`
       },
       () => {
         this.onClearSegments();
