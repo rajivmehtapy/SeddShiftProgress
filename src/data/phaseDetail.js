@@ -29,7 +29,14 @@ export default class DataSource {
 ]`;
 
   static DECIMAL_POINTS = 4;
-
+  static DRILL_PLAN = {
+    diameter: 48,
+    distance: 1500
+  };
+  static PILOT_PLAN = {
+    diameter: 11,
+    distance: 1500
+  };
   static ShiftInfo = `
 {
   "shiftId": "4575ccb0-64ea-46a8-a909-7e470c006003",
@@ -98,4 +105,166 @@ export default class DataSource {
     { diameter: 24, distance: 325 },
     { diameter: 11, distance: 25 }
   ];
+
+  static PHASE_STEPS = [
+    {
+      id: 1,
+      title: "Rigup",
+      nextid: 2,
+      type: 0,
+      phaseWeight: 20
+    },
+    {
+      id: 2,
+      title: "Pilot",
+      nextid: 3,
+      type: 1,
+      phaseWeight: 20
+    },
+    {
+      id: 3,
+      title: "Open",
+      nextid: 4,
+      type: 1,
+      phaseWeight: 47
+    },
+    {
+      id: 4,
+      title: "Close",
+      nextid: -1,
+      type: 0,
+      phaseWeight: 13
+    }
+  ];
+  static SHIFT_STATUS_WORKUNIT = {
+    phaseType: "",
+    isComplete: false,
+    percentComplete: 0,
+    volume: 0,
+    segment: "[]",
+    phaseProgressType: "",
+    phaseWeight: 0,
+    phaseIndex: 0,
+    phaseId: ""
+  };
+
+  static SHIFT_STATUS_DATA = {
+    dateStart: "",
+    drillId: "",
+    drillSlug: "",
+    drillOpenPlan: {
+      diameter: 0,
+      distance: 0
+    },
+    drillPilotPlan: {
+      diameter: 0,
+      distance: 0
+    },
+    currentPhaseType: "",
+    currentPhaseProgressType: "",
+    currentPhasePercentComplete: 0,
+    drillPhaseStatus: {
+      Rigup: {
+        phaseType: "RIGUP",
+        isComplete: false,
+        percentComplete: 0,
+        phaseProgressType: "NON_DRILLING",
+        phaseWeight: 0,
+        phaseIndex: 0,
+        phaseId: ""
+      },
+      Pilot: {
+        phaseType: "PILOT",
+        isComplete: false,
+        percentComplete: 0,
+        phaseProgresype: "DRILLING",
+        phaseWeight: 0,
+        volume: 0,
+        segment: "[]",
+        phaseIndex: 1,
+        phaseId: ""
+      },
+      Open: {
+        phaseType: "OPEN",
+        isComplete: false,
+        percentComplete: 0,
+        phaseProgressType: "DRILLING",
+        phaseWeight: 0,
+        volume: 0,
+        segment: "[]",
+        phaseIndex: 2,
+        phaseId: ""
+      },
+      Close: {
+        phaseType: "CLOSE",
+        isComplete: false,
+        percentComplete: 0,
+        phaseProgressType: "NON_DRILLING",
+        phaseWeight: 0,
+        phaseIndex: 3,
+        phaseId: ""
+      }
+    },
+    otherDataIfNeeded: {}
+  };
+
+  static SHIFT_STATUS_SAMPLE_DATA = {
+    dateStart: "",
+    drillId: "",
+    drillSlug: "",
+    drillOpenPlan: {
+      diameter: 0,
+      distance: 0
+    },
+    drillPilotPlan: {
+      diameter: 0,
+      distance: 0
+    },
+    currentPhaseType: "",
+    currentPhaseProgressType: "",
+    currentPhasePercentComplete: 0,
+    drillPhaseStatus: {
+      rigup: {
+        phaseType: "RIGUP",
+        isComplete: false,
+        percentComplete: 1.0,
+        phaseProgressType: "NON_DRILLING",
+        phaseWeight: 0.1,
+        phaseIndex: 0,
+        phaseId: ""
+      },
+      pilot: {
+        phaseType: "PILOT",
+        isComplete: false,
+        percentComplete: 0.378,
+        phaseProgresype: "DRILLING",
+        phaseWeight: 0.3,
+        volume: 33,
+        segment: "[]",
+        phaseIndex: 1,
+        phaseId: ""
+      },
+      open: {
+        phaseType: "OPEN",
+        isComplete: false,
+        percentComplete: 0.0,
+        phaseProgressType: "DRILLING",
+        phaseWeight: 0.5,
+        volume: 0,
+        segment: "[]",
+        phaseIndex: 2,
+        phaseId: ""
+      },
+      close: {
+        phaseType: "CLOSE",
+        isComplete: false,
+        percentComplete: 0.0,
+        phaseProgressType: "NON_DRILLING",
+        phaseWeight: 0.1,
+        phaseIndex: 3,
+        phaseId: ""
+      }
+    },
+    otherDataIfNeeded: {}
+  };
 }

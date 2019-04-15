@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { version, Modal, Table } from "antd";
+import { Modal, Table } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
 import seddCalculation from "./utility/seddCalculation";
@@ -7,7 +7,6 @@ import DataSource from "./data/phaseDetail";
 import { fromProgressArray, toArray, toVolume } from "@sedd/utils/segment";
 
 const calculate = progress => toVolume(fromProgressArray(progress));
-// const calculatearray = progress => toArray(fromProgressArray(progress));
 const startingarray = progress => toVolume(fromProgressArray(progress));
 const finalarray = progress => toVolume(fromProgressArray(progress));
 
@@ -151,9 +150,7 @@ class phaseCalculation extends Component {
     try {
       JSON.parse(e.currentTarget.value);
       this.setState({ ...this.state, drillPlan: e.currentTarget.value });
-    } catch (error) {
-      debugger;
-    }
+    } catch (error) {}
   };
 
   onOpenPhaseWeight = e => {
@@ -172,7 +169,6 @@ class phaseCalculation extends Component {
     try {
       JSON.stringify(e.currentTarget.value);
       if (e.key === "Enter") {
-        debugger;
         var actualjson = JSON.parse(this.state.actualjson);
         actualjson[0] = JSON.parse(e.currentTarget.value);
         //console.log(this.state.sourcejson);
@@ -261,9 +257,13 @@ class phaseCalculation extends Component {
         OpenPhasePoint = isNaN(OpenPhasePoint) ? 0 : OpenPhasePoint;
         DrillPoints = isNaN(DrillPoints) ? 0 : DrillPoints;
         ContractPoints = isNaN(ContractPoints) ? 0 : ContractPoints;
-        phasePointsCumulative = isNaN(phasePointsCumulative)
-          ? 0
-          : phasePointsCumulative;
+        if (startingarray(JSON.parse(this.state.sourcejson)) === 0) {
+          phasePointsCumulative = 0;
+        } else {
+          phasePointsCumulative = isNaN(phasePointsCumulative)
+            ? 0
+            : phasePointsCumulative;
+        }
         this.setState({
           ...this.state,
           actualvolume: startingarray(JSON.parse(this.state.actualjson)),
@@ -290,7 +290,11 @@ class phaseCalculation extends Component {
         const DrillPoints2 =
           OpenPhasePoint2 * (this.state.openPhaseWeight / 100);
         const ContractPoints2 = DrillPoints2 * (this.state.DrillWeight / 100);
-
+        let phasePointsCumulativeRef =
+          startingarray(JSON.parse(this.state.sourcejson)) !== 0
+            ? startingarray(this.finalprogressList) /
+              (TotalVolume - PilotVolume)
+            : 0;
         this.setState({
           ...this.state,
           actualvolume: startingarray(JSON.parse(startjson)),
@@ -304,8 +308,7 @@ class phaseCalculation extends Component {
           OpenPhasePoint: OpenPhasePoint2,
           DrillPoints: DrillPoints2,
           ContractPoints: ContractPoints2,
-          phasePointsCumulative:
-            startingarray(this.finalprogressList) / (TotalVolume - PilotVolume),
+          phasePointsCumulative: phasePointsCumulativeRef,
           shiftVolumeDisplay: shiftvolume2
         });
         break;
@@ -366,7 +369,7 @@ class phaseCalculation extends Component {
     this.gdata.push({
       key: resultObj.id,
       Id: resultObj.id,
-      shiftvolume: resultObj.info.shiftvolume,
+      shiftvolume: resultObj.info.shiftVolumeDisplay,
       OpenPhasePoint: resultObj.info.OpenPhasePoint,
       DrillPoints: resultObj.info.DrillPoints,
       ContractPoints: resultObj.info.ContractPoints,

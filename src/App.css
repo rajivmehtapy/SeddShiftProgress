@@ -2,9 +2,25 @@
   text-align: center;
 }
 
+.ant-radio-button-wrapper-disabled:first-child,
+.ant-radio-button-wrapper-disabled:hover {
+  color: #5f5f67 !important;
+  border-color: #d9d9d9 !important;
+  cursor: pointer !important;
+}
 .progress-container {
-  width: 25%;
+  display: flex;
+  width: 35%;
   padding: 10px;
+  height: 30vh;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid gray;
+}
+
+.progress-time {
+  width: 55%;
+  border: 1px solid #d9d9d9;
 }
 
 .progress-container-row {
@@ -131,10 +147,26 @@ input[type="text"] {
   display: flex;
 }
 
+.phaseDetail-time-container {
+  display: flex;
+  width: 35%;
+  align-items: center;
+}
+
+.phaseDetail-container {
+  border-bottom: 1px solid gray;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  width: 50vw;
+  margin-left: 5px;
+}
+
 .steps-content {
-  height: 50vh;
-  border: 1px solid #666666;
+  height: auto;
   margin: 5px;
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
 }
 
 @keyframes App-logo-spin {

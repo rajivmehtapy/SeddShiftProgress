@@ -1,0 +1,21 @@
+.add-another {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 7vw;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.drill-entry-container {
+  display: flex;
+  justify-content: space-between;
+  width: 30vw;
+  margin-bottom: 5px;
+}
+
+.drill-entry-container span {
+  margin-right: 10px;
+  margin-left: 5px;
+}
